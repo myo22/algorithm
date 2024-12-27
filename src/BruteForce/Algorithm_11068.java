@@ -1,6 +1,8 @@
-import java.util.*;
+package BruteForce;
 
-class Main {
+import java.util.Scanner;
+
+public class Algorithm_11068 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int T = in.nextInt();
