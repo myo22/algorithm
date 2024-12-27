@@ -5,41 +5,34 @@ class Main {
         Scanner in = new Scanner(System.in);
         int T = in.nextInt();
 
-        int[] arr = new int[T];
-
-        for (int i = 0; i < T; i++) {
-            arr[i] = in.nextInt();
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        for(int i = 0; i < arr.length; i++) {
-            String ans = "";
-            boolean found = false;
+        while (T-- > 0) {
+            int x = in.nextInt();
+            boolean ans = false;
             for(int j = 2; j <= 64; j++) {
-                String answer = Integer.toString(arr[i], j).toUpperCase();
-                if (isPalindrome(answer)) {
-                    found = true;
+                int[] baseDigit = new int[20];
+                int baseLength = convertBase(x, j, baseDigit);
+                if (isPalindrome(baseDigit, baseLength)) {
+                    ans = true;
                     break;
                 }
             }
-
-            if (found) {
-                sb.append("1").append("\n");
-            } else {
-                sb.append("0").append("\n");
-            }
-
+            System.out.println(ans ? "1" : "0");
         }
-
-        System.out.println(sb.toString());
-
     }
 
-    private static boolean isPalindrome(String s) {
-        int len = s.length();
-        for (int i = 0; i < len / 2; i++) {
-            if (s.charAt(i) != s.charAt(len - i - 1)) {
+
+    public static int convertBase(int x, int base, int[] reverseDigit) {
+        int len = 0;
+        while (x > 0) {
+            reverseDigit[len++] = x % base;
+            x /= base;
+        }
+        return len;
+    }
+
+    public static boolean isPalindrome(int[] digit, int length) {
+        for (int i = 0; i < length / 2; i++) {
+            if (digit[i] != digit[length - i - 1]) {
                 return false;
             }
         }
