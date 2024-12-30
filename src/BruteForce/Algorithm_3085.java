@@ -29,7 +29,7 @@ public class Algorithm_3085 {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 // 오른쪽과 교환
-                if (j + 1 < N) {
+                if (j + 1 < N && board[i][j] != board[i][j+1]) {
                     swap(board, i, j, i, j + 1);
                     maxCandy = Math.max(maxCandy, checkRow(board, i, N));
                     maxCandy = Math.max(maxCandy, checkColumn(board, j, N));
@@ -38,7 +38,7 @@ public class Algorithm_3085 {
                 }
 
                 // 아래쪽과 교환
-                if (i + 1 < N) {
+                if (i + 1 < N && board[i][j] != board[i + 1][j]) {
                     swap(board, i, j, i + 1, j);
                     maxCandy = Math.max(maxCandy, checkColumn(board, j, N));
                     maxCandy = Math.max(maxCandy, checkRow(board, i, N));
