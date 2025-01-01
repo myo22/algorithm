@@ -11,21 +11,18 @@ public class Algorithm_10250 {
             int W = in.nextInt();
             int N = in.nextInt();
 
-            int count = 0;
+            int roomCount = 0;
             boolean found = false;
+            outer:
             for (int j = 0; j < W; j++) {
                 for (int k = 0; k < H; k++) {
-                    count++;
-                    if (count >= N) {
-                        System.out.println(String.valueOf(k + 1) + (j < 10 ? "0" +String.valueOf(j + 1) : String.valueOf(j + 1)));
-                        found = true; // 플래그 설정
-                        break; // 안쪽 루프 종료
+                    roomCount++;
+                    if (roomCount >= N) {
+                        System.out.println(String.valueOf(k + 1) + String.format("%02d", j + 1));
+                        break outer;  // 레이블을 이용해 바깥 루프도 종료
                     }
                 }
-                if (found) break; // 바깥 루프 종료
             }
-
         }
-
     }
 }
