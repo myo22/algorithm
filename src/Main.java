@@ -17,25 +17,25 @@ class Main {
                 if (curR == N - 1) {
                     continue;
                 }
-                passVertical[curR][curC]  = passHorizontal[curR + 1][curC] = true;
+                passVertical[curR][curC]  = passVertical[curR + 1][curC] = true;
                 curR++;
             }else if (cmd == 'U') {
                 if (curR == 0) {
                     continue;
                 }
-                passVertical[curR][curC]  = passHorizontal[curR - 1][curC] = true;
+                passVertical[curR][curC]  = passVertical[curR - 1][curC] = true;
                 curR--;
             }else if (cmd == 'L') {
                 if (curC == 0){
                     continue;
                 }
-                passHorizontal[curR][curC] = passVertical[curR][curC - 1] = true;
+                passHorizontal[curR][curC] = passHorizontal[curR][curC - 1] = true;
                 curC--;
-            }else if(cmd == 'R') {
+            }else {
                 if (curC == N - 1){
                     continue;
                 }
-                passHorizontal[curR][curC] = passVertical[curR][curC + 1] = true;
+                passHorizontal[curR][curC] = passHorizontal[curR][curC + 1] = true;
                 curC++;
             }
         }
