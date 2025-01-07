@@ -4,57 +4,55 @@ class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        int[][] board = new int[N][N];
-        char[] chars = sc.next().toCharArray();
+        String command = sc.next();
 
-        int vertical  = 0;
-        int horizon = 0;
+        boolean[][] passVertical= new boolean[N][N];
+        boolean[][] passHorizontal= new boolean[N][N];
 
-        for (int i = 0; i < chars.length; i++) {
-            switch (chars[i]) {
-                case 'U':
-                    if (vertical - 1 >= 0) {
-                        board[horizon][vertical] |= 2;
-                        board[horizon][--vertical] |= 2;
-                    }
-                    break;
-                case 'D':
-                    if (vertical + 1 < N) {
-                        board[horizon][vertical] |= 2;
-                        board[horizon][++vertical] |= 2;
-                    }
-                    break;
-                case 'L':
-                    if(horizon - 1 >= 0) {
-                        board[horizon][vertical] |= 1;
-                        board[--horizon][vertical] |= 1;
-                    }
-                    break;
-                case 'R':
-                    if(horizon + 1 < N) {
-                        board[horizon][vertical] |= 1;
-                        board[++horizon][vertical] |= 1;
-                    }
-                    break;
+        int curR = 0, curC = 0;
+
+        for(int i = 0; i < command.length(); i++) {
+            char cmd = command.charAt(i);
+            if(cmd == 'D') {
+                if (curR == N - 1) {
+                    continue;
+                }
+                passVertical[curR][curC]  = passHorizontal[curR + 1][curC] = true;
+                curR++;
+            }else if (cmd == 'U') {
+                if (curR == 0) {
+                    continue;
+                }
+                passVertical[curR][curC]  = passHorizontal[curR - 1][curC] = true;
+                curR--;
+            }else if (cmd == 'L') {
+                if (curC == 0){
+                    continue;
+                }
+                passHorizontal[curR][curC] = passVertical[curR][curC - 1] = true;
+                curC--;
+            }else if(cmd == 'R') {
+                if (curC == N - 1){
+                    continue;
+                }
+                passHorizontal[curR][curC] = passVertical[curR][curC + 1] = true;
+                curC++;
             }
         }
 
-
-        for (int i = 0; i < N; i++) {
+        for(int i = 0; i < N; i++) {
+            String ans = "";
             for (int j = 0; j < N; j++) {
-                char outputChar;
-                if (board[j][i] == 3) {
-                    outputChar = '+';
-                } else if (board[j][i] == 2) {
-                    outputChar = '|';
-                } else if (board[j][i] == 1) {
-                    outputChar = '-';
-                } else {
-                    outputChar = '.';
-                }
-                System.out.print(outputChar);
+                if(passVertical[i][j] && passHorizontal[i][j]) {
+                    ans += "+";
+                }else if(passVertical[i][j]){
+                    ans += "|";
+                }else if(passHorizontal[i][j]){
+                    ans += "-";
+                }else
+                    ans += ".";
             }
-            System.out.println();
+            System.out.println(ans);
         }
     }
 }
