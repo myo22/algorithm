@@ -6,7 +6,7 @@ public class Algorithm_1730 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        String command = sc.next();
+        String command = sc.hasNext() ? sc.next() : "";
 
         boolean[][] passVertical= new boolean[N][N];
         boolean[][] passHorizontal= new boolean[N][N];
