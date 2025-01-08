@@ -1,6 +1,12 @@
-import java.util.*;
+package BruteForce;
 
-class Main {
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Algorithm_2840 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -8,9 +14,9 @@ class Main {
 
         char[] wheel = new char[N];
         Arrays.fill(wheel, '?');
-
         boolean isPossible = true;
         Map<Character, Integer> seen = new HashMap<>();
+
         int currentPos = 0;
 
         while (K-- > 0) {
@@ -19,12 +25,12 @@ class Main {
 
             currentPos  = (currentPos + S) % N;
 
-            if (wheel[currentPos] != '?' && wheel[currentPos] != letter) {
+            if(wheel[currentPos] != '?' || wheel[currentPos] != letter) {
                 isPossible = false;
                 break;
             }
 
-            if (seen.containsKey(letter) && seen.get(letter) != currentPos) {
+            if(seen.containsKey(letter) && seen.get(letter) != currentPos) {
                 isPossible = false;
                 break;
             }
@@ -32,17 +38,17 @@ class Main {
             wheel[currentPos] = letter;
             seen.put(letter, currentPos);
 
-        }
+            // 모순이 있으면 에러 메시지 출력
+            if (!isPossible) {
+                System.out.println("!");
+                return;
+            }
 
-        // 모순이 있으면 에러 메시지 출력
-        if (!isPossible) {
-            System.out.println("!");
-            return;
-        }
+            // 결과 출력
+            for (char c : wheel) {
+                System.out.print(c);
+            }
 
-        // 결과 출력
-        for (char c : wheel) {
-            System.out.print(c);
         }
     }
 }
