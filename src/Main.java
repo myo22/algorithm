@@ -8,41 +8,39 @@ class Main {
 
         char[] wheel = new char[N];
         Arrays.fill(wheel, '?');
-
-        boolean isPossible = true;
-        Map<Character, Integer> seen = new HashMap<>();
-        int currentPos = 0;
+        int curIndex = 0;
 
         while (K-- > 0) {
-            int S = sc.nextInt();
-            char letter = sc.next().charAt(0);
+            int S = sc.nextInt(); // 시계방향으로 S만큼 이동
+            char nextAlphabet = sc.next().charAt(0);
 
-            currentPos  = (currentPos + S) % N;
-
-            if (wheel[currentPos] != '?' && wheel[currentPos] != letter) {
-                isPossible = false;
-                break;
+            // 화살표가 어느 인덱스를 가르키고 있는지 기록
+            int nextIndex = ((curIndex - S) % N + N) % N; // 빼는 이유는 바퀴의 방향과 화살표의 방향이 반대이기 떄문이다.
+            if(wheel[nextIndex] == '?') {
+                wheel[nextIndex] = nextAlphabet;
+            }else if(wheel[nextIndex] != nextAlphabet) {
+                System.out.print('!');
+                return;
             }
+            curIndex = nextIndex; // 현재 화살표의 위치
+        }
 
-            if (seen.containsKey(letter) && seen.get(letter) != currentPos) {
-                isPossible = false;
-                break;
+        // 바퀴에 적힌 글자가 모두 다른지 확인
+        boolean[] isExist = new boolean[26];
+        for(int i = 0; i < N; i++) {
+            if(wheel[i] == '?') {
+                continue;
             }
-
-            wheel[currentPos] = letter;
-            seen.put(letter, currentPos);
-
+            if (isExist[wheel[i] - 'A']) {
+                System.out.print('!');
+                return;
+            }
+            isExist[wheel[i] - 'A'] = true; // 아스키 코드 값을 이용해서 0부터 시작하는 인덱스로 기록
         }
 
-        // 모순이 있으면 에러 메시지 출력
-        if (!isPossible) {
-            System.out.println("!");
-            return;
+        for(int i = 0; i < N; i++) {
+            System.out.print(wheel[(curIndex + i) % N]); // 마지막 바퀴의 글자부터 출력해야한다.
         }
-
-        // 결과 출력
-        for (char c : wheel) {
-            System.out.print(c);
-        }
+        System.out.println();
     }
 }
