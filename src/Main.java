@@ -12,11 +12,11 @@ class Main {
 
         while(N-- > 0) {
             String name = sc.next();
-            double score = sc.nextInt();
+            int score = sc.nextInt();
 
             if (score > votes) {
                 for(int i = 1; i <= 14; i++){
-                    map.put(score / i, name);
+                    map.put((double) score / i, name);
                 }
             }
         }
