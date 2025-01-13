@@ -22,8 +22,7 @@ class Main {
         }
 
         List<Double> list = new ArrayList<>(map.keySet());
-
-        Collections.reverse(list);
+        list.sort(Collections.reverseOrder());
 
         Map<String, Integer> answer = new HashMap<>();
 
