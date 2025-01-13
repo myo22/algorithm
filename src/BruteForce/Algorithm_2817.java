@@ -1,6 +1,8 @@
+package BruteForce;
+
 import java.util.*;
 
-class Main {
+public class Algorithm_2817 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int X = sc.nextInt();
@@ -8,11 +10,11 @@ class Main {
 
         double votes = X * 0.05;
 
-        Map<Double, String> map = new HashMap<>();
+        Map<Integer, String> map = new HashMap<>();
 
         while(N-- > 0) {
             String name = sc.next();
-            double score = sc.nextInt();
+            int score = sc.nextInt();
 
             if (score > votes) {
                 for(int i = 1; i <= 14; i++){
@@ -21,7 +23,7 @@ class Main {
             }
         }
 
-        List<Double> list = new ArrayList<>(map.keySet());
+        List<Integer> list = new ArrayList<>(map.keySet());
 
         Collections.reverse(list);
 
