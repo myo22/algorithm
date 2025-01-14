@@ -6,33 +6,67 @@ class Main {
         int X = sc.nextInt();
         int N = sc.nextInt();
 
-        double votes = X * 0.05;
+        int[] staffVote = new int[26];
 
-        Map<Double, String> map = new HashMap<>();
-
-        while(N-- > 0) {
+        boolean[] validCandidate = new boolean[26];  // 유효한 후보인지 검증
+        double validCut = X * 0.05;
+        int candidateCount = 0;
+        for(int i = 0;  i < N; i++) {
             String name = sc.next();
-            int score = sc.nextInt();
-
-            if (score > votes) {
-                for(int i = 1; i <= 14; i++){
-                    map.put((double) score / i, name);
-                }
+            int vote = sc.nextInt();
+            if (vote >= validCut) {
+                int idx = name.charAt(0) - 'A';
+                validCandidate[idx] = true;
+                staffVote[idx] = vote;
+                candidateCount++;
             }
         }
 
-        List<Double> list = new ArrayList<>(map.keySet());
-        list.sort(Collections.reverseOrder());
-
-        Map<String, Integer> answer = new HashMap<>();
-
-        for(int i = 0; i < 14; i++){
-            String key = map.get(list.get(i));
-            answer.put(key, answer.getOrDefault(key, 0) + 1);
+        Score[] scores = new Score[candidateCount * 14];
+        int score_idx = 0;
+        for (int i = 0; i < 26; i++) {
+            if(!validCandidate[i]) continue; // 유효한 스태프여야만 기록
+            for(int j = 0; j <= 14; j++){
+                scores[score_idx++] = new Score(i, (double)staffVote[i] / j);
+            }
         }
 
-        for(String key : answer.keySet()){
-            System.out.println(key + " " + answer.get(key));
+        sortScoresDescendingOrder(scores);
+
+        int[] ans = new int[26];
+        for(int i = 0; i < 14; i++) {
+            ans[scores[i].staffIndex]++;
+        }
+
+        for (int i = 0; i < 26; i++){
+            if(validCandidate[i])
+                System.out.println((char)('A' + i) + " " + ans[i]);
+        }
+
+    }
+
+    public static void sortScoresDescendingOrder(Score[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            for(int j = 0; j < i; j++){
+                if(arr[j].scr < arr[i].scr){
+                    Score cur = arr[i];
+                    for(int k = i; k > j; k--){
+                        arr[k] = arr[k - 1];
+                    }
+                    arr[j] = cur;
+                    break;
+                }
+            }
+        }
+    }
+
+    static class Score{
+        int staffIndex;
+        double scr;
+
+        public Score(int staffIndex, double scr) {
+            this.staffIndex = staffIndex;
+            this.scr = scr;
         }
     }
 }
