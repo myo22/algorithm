@@ -6,28 +6,27 @@ class Main {
         int X = sc.nextInt();
         int N = sc.nextInt();
 
-        int[] staffVote = new int[26];
-
-        boolean[] validCandidate = new boolean[26];  // 유효한 후보인지 검증
         double validCut = X * 0.05;
+        boolean[] validCandidate = new boolean[26];
+        int[] staffVote = new int[26];
         int candidateCount = 0;
-        for(int i = 0;  i < N; i++) {
+        for (int i = 0; i < N; i++) {
             String name = sc.next();
             int vote = sc.nextInt();
             if (vote >= validCut) {
-                int idx = name.charAt(0) - 'A';
-                validCandidate[idx] = true;
-                staffVote[idx] = vote;
+                int index = name.charAt(0) - 'A';
+                validCandidate[index] = true;
+                staffVote[index] = vote;
                 candidateCount++;
             }
         }
 
         Score[] scores = new Score[candidateCount * 14];
-        int score_idx = 0;
-        for (int i = 0; i < 26; i++) {
-            if(!validCandidate[i]) continue; // 유효한 스태프여야만 기록
-            for(int j = 0; j <= 14; j++){
-                scores[score_idx++] = new Score(i, (double)staffVote[i] / j);
+        int scoreIndex = 0;
+        for (int i = 0 ; i < 26; i++) {
+            if (validCandidate[i]) {
+                for (int j = 1; j <= 14; j++)
+                    scores[scoreIndex++] = new Score(i, (double)staffVote[i] / j);
             }
         }
 
