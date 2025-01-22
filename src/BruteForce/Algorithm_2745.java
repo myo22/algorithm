@@ -1,6 +1,8 @@
-import java.util.*;
+package BruteForce;
 
-class Main {
+import java.util.Scanner;
+
+public class Algorithm_2745 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String N = sc.next();
@@ -15,7 +17,7 @@ class Main {
             }else{
                 a = ch - '0';
             }
-          sum += a * Math.pow(B, i);
+            sum += a * Math.pow(B, i);
         }
 
         System.out.println(sum);
