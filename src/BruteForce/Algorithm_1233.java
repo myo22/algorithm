@@ -1,6 +1,8 @@
-import java.util.*;
+package BruteForce;
 
-class Main {
+import java.util.Scanner;
+
+public class Algorithm_1233 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int S1 = sc.nextInt();
@@ -20,9 +22,9 @@ class Main {
         }
 
         int answer = 0;
-        int max = 0;
 
         for (int i = 3; i <= sum; i++) {
+            int max = 0;
             if(figure[i] > max) {
                 max = figure[i];
                 answer = i;
