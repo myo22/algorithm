@@ -1,28 +1,23 @@
-import java.util.*;
+package BruteForce;
 
-class Main {
+import java.util.Scanner;
+
+public class Algorithm_2231{
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         int sum;
-        int temp;
-        boolean constructor = false;
         for(int i = N / 2; i < N; i++){
             sum = i;
-            temp = i;
-            while (temp > 0){
-                sum += temp % 10;
-                temp /= 10;
+            while (i > 0){
+                sum += i % 10;
+                i /= 10;
             }
             if(sum == N){
                 System.out.println(i);
-                constructor = true;
                 break;
             }
         }
-
-        if(!constructor){
-            System.out.println("0");
-        }
+        System.out.println("0");
     }
 }
