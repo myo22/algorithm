@@ -1,4 +1,6 @@
-class Main {
+package BruteForce;
+
+public class Algorithm_4673 {
     public static void main(String[] args) {
         boolean[] selfNumber = new boolean[20000];
         int origin;
