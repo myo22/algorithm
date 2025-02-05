@@ -1,23 +1,21 @@
+import java.util.Scanner;
+
 class Main {
     public static void main(String[] args) {
-        boolean[] selfNumber = new boolean[20000];
-        int origin;
-        int sum;
-        for(int i = 1; i <= 10000; i++) {
-            origin = i;
-            sum = i;
-            while(origin > 0) {
-                sum += origin % 10;
-                origin /= 10;
-            }
-            selfNumber[sum] = true;
-        }
+        Scanner sc = new Scanner(System.in);
+        String A = sc.next();
+        String B = sc.next();
 
-        for(int i = 1; i <= 10000; i++) {
-            if(!selfNumber[i]) {
-                System.out.println(i);
+        int ans = A.length();
+        for(int i = 0; i <= B.length() - A.length(); i++) {
+            int cnt = 0;
+            for(int j = 0; j < A.length(); j++) {
+                if (A.charAt(j) != B.charAt(i + j))
+                    cnt++;
             }
+            ans = Math.min(ans, cnt);
         }
-
+        System.out.println(ans);
     }
+
 }
