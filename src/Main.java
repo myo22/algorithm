@@ -6,49 +6,61 @@ class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
-        // 각 줄에서 옮기면서 가장 작은 8개를 찾으면됨
-        // 그걸 결국 줄마다 작은곳을 찾아서 마지막에 반환하면 되는거 아닌가?
-
-        // 첫번째가 white 시작인경우
-        // 첫번째가 black 시작인경우
-
-        String white = "WBWBWBWB";
-        String black = "BWBWBWBW";
-
-        int answer = 0;
-
         char[][] board = new char[N][M];
 
         for (int i = 0; i < N; i++) {
             String A = sc.next();
-            for(int j = 0; j < M; j++) {
+            for (int j = 0; j < M; j++) {
                 board[i][j] = A.charAt(j);
             }
         }
 
-        int sum = 16;
+        int minChange = Integer.MAX_VALUE;
 
-        for(int j = 0; j < 8; j++) {
-            int cnt = 0;
-            for(int k = 0; k < 8 - j - 1; k++){
-                if(board[j][k] == board[j][k+1]){
-                    cnt++;
-                }
+        // 8x8 체스판을 만들 수 있는 모든 시작점 탐색
+        for (int startRow = 0; startRow <= N - 8; startRow++) {
+            for (int startCol = 0; startCol <= M - 8; startCol++) {
+                minChange = Math.min(minChange, countChanges(board, startRow, startCol));
             }
-
-            for(int k = 0; k < 8 - j - 1; k++){
-                if(board[k][j] == board[k+1][j]){
-                    cnt++;
-                }
-            }
-
-            sum = Math.min(sum, cnt);
         }
 
-
-        answer += sum;
-
-        System.out.println(answer);
+        System.out.println(minChange);
     }
 
+    static int countChanges(char[][] board, int startRow, int startCol) {
+        // 체스판 패턴 2가지
+        char[][] whiteFirst = {
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'},
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'},
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'},
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'},
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'},
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'},
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'},
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'}
+        };
+
+        char[][] blackFirst = {
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'},
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'},
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'},
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'},
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'},
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'},
+                {'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W'},
+                {'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'}
+        };
+
+        int whiteCount = 0;
+        int blackCount = 0;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[startRow + i][startCol + j] != whiteFirst[i][j]) whiteCount++;
+                if (board[startRow + i][startCol + j] != blackFirst[i][j]) blackCount++;
+            }
+        }
+
+        return Math.min(whiteCount, blackCount);
+    }
 }
