@@ -1,17 +1,19 @@
 package Sort;
 
 import java.util.*;
+import java.io.*;
 
 public class Algorithm_10814 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
 
         Map<String, Integer> map = new LinkedHashMap<>();
 
         for(int i = 0; i < N; i++) {
-            Integer value = sc.nextInt();
-            String key = sc.next();
+            String s = br.readLine();
+            Integer value = Integer.parseInt(s.split(" ")[0]);
+            String key = s.split(" ")[1];
             map.put(key, value);
         }
 
@@ -24,9 +26,12 @@ public class Algorithm_10814 {
             }
         });
 
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         for (String key : list){
-            System.out.println(map.get(key) + " " +key);
+            bw.write(map.get(key) + " " +key + "\n");
         }
 
+        bw.flush();
     }
 }
