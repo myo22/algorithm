@@ -1,39 +1,43 @@
 package Sort;
 
 import java.util.*;
-import java.io.*;
 
 public class Algorithm_10814 {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
 
-        List<Main.Member> list = new LinkedList<>();
+        Member[] members = new Member[N];
 
         for(int i = 0; i < N; i++) {
-            list.add(new Main.Member(sc.nextInt(), sc.next()));
+            members[i] = (new Member(sc.nextInt(), sc.next(), i));
         }
 
-        list.sort(new Comparator<Main.Member>() {
-            @Override
-            public int compare(Main.Member o1, Main.Member o2) {
-                return o1.key - o2.key;
-            }
-        });
+        Arrays.sort(members);
 
-        for (Main.Member member : list){
+        for (Member member : members){
             System.out.println(member.key + " " + member.value);
         }
 
     }
 
-    public static class Member {
+    static class Member implements Comparable<Member>{
         public Integer key;
         public String value;
+        int idx;
 
-        public Member(int key, String value) {
+        public Member(int key, String value, int idx){
             this.key = key;
             this.value = value;
+            this.idx = idx;
+        }
+
+        @Override
+        public int compareTo(Member o) {
+            if(this.key == o.key){
+                return this.key- o.key;
+            }
+            return this.idx - o.idx;
         }
     }
 }
