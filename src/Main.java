@@ -1,35 +1,36 @@
-import java.io.*;
 import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
 
-        Map<String, Integer> map = new LinkedHashMap<>();
+        List<Member> list = new LinkedList<>();
 
         for(int i = 0; i < N; i++) {
-            String s = br.readLine();
-            Integer value = Integer.parseInt(s.split(" ")[0]);
-            String key = s.split(" ")[1];
-            map.put(key, value);
+            list.add(new Member(sc.nextInt(), sc.next()));
         }
 
-        List<String> list = new ArrayList<>(map.keySet());
-
-        list.sort(new Comparator<String>() {
+        list.sort(new Comparator<Member>() {
             @Override
-            public int compare(String o1, String o2) {
-                return map.get(o1) - map.get(o2);
+            public int compare(Member o1, Member o2) {
+                return o1.key - o2.key;
             }
         });
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        for (String key : list){
-            bw.write(map.get(key) + " " +key + "\n");
+        for (Member member : list){
+            System.out.println(member.key + " " + member.value);
         }
 
-        bw.flush();
+    }
+
+    public static class Member {
+        public Integer key;
+        public String value;
+
+        public Member(int key, String value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 }
