@@ -24,11 +24,12 @@ public class Algorithm_7785 {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         for (String answer : list) {
-            bw.write(answer);
+            bw.write(answer + "\n");
         }
 
         bw.flush();
     }
+
 
     // 2.  Sort를 활용한 방법
 //    public static void main(String[] args) throws IOException {
@@ -85,6 +86,5 @@ public class Algorithm_7785 {
 //        }
 //
 //    }
-//}
 
 }

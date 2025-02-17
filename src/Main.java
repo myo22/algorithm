@@ -6,25 +6,23 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        Map<String, String> map = new HashMap<>();
-
-        for(int i = 0; i < n; i++) {
+        Set<String> entered = new TreeSet<>();
+        for (int i = 0; i < n; i++) {
             String[] arr = br.readLine().split(" ");
-            map.put(arr[0], arr[1]);
+            String name = arr[0];
+            String state = arr[1];
+            if(state.equals("enter")) {
+                entered.add(name);
+            }
+            else{
+                entered.remove(name);
+            }
         }
 
-        List<String> list = new ArrayList<>(map.keySet());
-
-        list.removeIf(answer -> map.get(answer).equals("leave"));
-
-        Collections.sort(list, Collections.reverseOrder());
-
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        for(String answer : list) {
-            bw.write(answer);
+        String[] orderedAnswer = entered.toArray(new String[entered.size()]);
+        for(int i = orderedAnswer.length - 1; i >= 0; i--){
+            System.out.println(orderedAnswer[i]);
         }
 
-        bw.flush();
     }
 }
