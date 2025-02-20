@@ -6,26 +6,29 @@ class Main {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
 
-        String[] arr = new String[N];
+        Map<String, Integer> map = new HashMap<>();
 
         for(int i = 0; i < N; i++) {
-            arr[i] = sc.next();
+            String title = sc.next();
+            map.put(title, map.getOrDefault(title, 0) + 1);
         }
 
-        Arrays.sort(arr);
+        List<String> list = new LinkedList<>(map.keySet());
 
-        int currentCount = 1;
-        int maxCount = 1;
-        String answer = arr[0];
-        for(int i = 0; i < arr.length - 1; i++){
-            if(!arr[i].equals(arr[i + 1])) {
-                currentCount = 0;
+        list.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
             }
-            currentCount++;
+        });
 
-            if(maxCount < currentCount) {
-                maxCount = currentCount;
-                answer = arr[i];
+        int maxValue = 0;
+        String answer = "";
+
+        for(String title :list) {
+            if(map.get(title) > maxValue) {
+                maxValue = map.get(title);
+                answer = title;
             }
         }
 
