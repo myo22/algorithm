@@ -14,11 +14,11 @@ class Main {
 
         Arrays.sort(arr);
 
-        int currentCount = 0;
-        int maxCount = 0;
-        String answer = "";
+        int currentCount = 1;
+        int maxCount = 1;
+        String answer = arr[0];
         for(int i = 0; i < arr.length - 1; i++){
-            if(!arr[i].equals(arr[i+1])) {
+            if(!arr[i].equals(arr[i + 1])) {
                 currentCount = 0;
             }
             currentCount++;
