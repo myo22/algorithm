@@ -1,7 +1,9 @@
-import java.io.*;
-import java.util.*;
+package Sort;
 
-class Main {
+import java.util.*;
+import java.io.*;
+
+public class Algorithm_1302 {
     public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -32,4 +34,5 @@ class Main {
         System.out.println(answer);
 
     }
+    
 }
