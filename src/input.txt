@@ -1,9 +1,2 @@
-8
-icecream
-peanuts
-peanuts
-chocolate
-candy
-chocolate
-icecream
-apple
+5
+2 4 -10 4 -9
