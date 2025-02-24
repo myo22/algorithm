@@ -1,7 +1,9 @@
+package Sort;
+
 import java.io.*;
 import java.util.*;
 
-class Main {
+public class Algorithm_2910 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -24,7 +26,7 @@ class Main {
 
         int[] count = new int[C];
         int idx = 0;
-        for(int i = 1; i < N; i++){
+        for(int i = 1; i < N - 1; i++){
             if(arr[i][0] != arr[i - 1][0]) {
                 count[arr[i][0]] = idx;
             }
