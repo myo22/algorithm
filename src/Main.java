@@ -17,10 +17,10 @@ class Main {
 
         Arrays.sort(arr);
 
-        Integer[][] frequencies = new Integer[arr.length][2];
+        int[][] frequencies = new int[arr.length][2];
         int frequencyIndex = 0;
         frequencies[frequencyIndex][0] = arr[0];
-        frequencies[frequencyIndex][1] = 0;
+        frequencies[frequencyIndex][1] = 1;
         for(int i = 1; i < arr.length; i++){
             if(arr[i] != arr[i - 1]) {
                 frequencies[++frequencyIndex][0] = arr[i];
@@ -28,16 +28,18 @@ class Main {
             frequencies[frequencyIndex][1]++;
         }
 
-        Arrays.sort(frequencies, new Comparator<Integer[]>() {
+        Arrays.sort(frequencies, new Comparator<int[]>() {
             @Override
-            public int compare(Integer[] o1, Integer[] o2){
+            public int compare(int[] o1, int[] o2){
                 return o2[1] - o1[1];
             }
         });
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for(int i = 0; i < N; i++){
-            bw.write(frequencies[i][0] + " ");
+        for(int i = 0; i <= frequencyIndex; i++) {
+            for(int j = 0; j < frequencies[i][1]; j++){
+                bw.write(frequencies[i][0] + " ");
+            }
         }
         bw.flush();
     }

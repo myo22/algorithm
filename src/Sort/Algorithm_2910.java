@@ -11,41 +11,37 @@ public class Algorithm_2910 {
         int C = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        Integer[][] arr = new Integer[N][3];
+        Integer[] arr = new Integer[N];
         for(int i = 0; i < N; i++) {
-            arr[i][0] = Integer.parseInt(st.nextToken());
-            arr[i][1] = i;
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(arr, new Comparator<Integer[]>() {
-            @Override
-            public int compare(Integer[] o1, Integer[] o2){
-                return o1[0] - o2[0];
-            }
-        });
 
-        int[] count = new int[C];
-        int idx = 0;
-        for(int i = 1; i < N - 1; i++){
-            if(arr[i][0] != arr[i - 1][0]) {
-                count[arr[i][0]] = idx;
+        Arrays.sort(arr);
+
+        int[][] frequencies = new int[arr.length][2];
+        int frequencyIndex = 0;
+        frequencies[frequencyIndex][0] = arr[0];
+        frequencies[frequencyIndex][1] = 1;
+        for(int i = 1; i < arr.length; i++){
+            if(arr[i] != arr[i - 1]) {
+                frequencies[++frequencyIndex][0] = arr[i];
             }
-            idx++;
+            frequencies[frequencyIndex][1]++;
         }
 
-        Arrays.sort(arr, new Comparator<Integer[]>() {
+        Arrays.sort(frequencies, new Comparator<int[]>() {
             @Override
-            public int compare(Integer[] o1, Integer[] o2){
-                if(count[o1[0]] != count[o2[0]]) {
-                    return count[o1[0]] - count[o2[0]];
-                }
-                return o1[1] - o2[1];
+            public int compare(int[] o1, int[] o2){
+                return o2[1] - o1[1];
             }
         });
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for(int i = 0; i < N; i++){
-            bw.write(arr[i][0] + " ");
+        for(int i = 0; i <= frequencyIndex; i++) {
+            for(int j = 0; j < frequencies[i][1]; j++){
+                bw.write(frequencies[i][0] + " ");
+            }
         }
         bw.flush();
     }
