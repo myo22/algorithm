@@ -2,6 +2,28 @@ import java.io.*;
 import java.util.*;
 
 class Main {
+    static class Frequency {
+        int num;
+        int count;
+        int firstIndex;
+
+        Frequency(int num, int count, int firstIndex) {
+            this.num = num;
+            this.count = count;
+            this.firstIndex = firstIndex;
+        }
+    }
+
+    static class Message {
+        int num;
+        int idx;
+
+        Message (int num, int idx) {
+            this.num = num;
+            this.idx = idx;
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -9,37 +31,37 @@ class Main {
         int C = Integer.parseInt(st.nextToken());
 
         st = new StringTokenizer(br.readLine());
-        Integer[] arr = new Integer[N];
+        Message[] messages = new Message[N];
         for(int i = 0; i < N; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            messages[i] = new Message(Integer.parseInt(st.nextToken()), i);
         }
 
 
-        Arrays.sort(arr);
+        Arrays.sort(messages, (o1, o2) -> o1.num - o2.num);
 
-        int[][] frequencies = new int[arr.length][2];
+        Frequency[] frequencies = new Frequency[N];
         int frequencyIndex = 0;
-        frequencies[frequencyIndex][0] = arr[0];
-        frequencies[frequencyIndex][1] = 1;
-        for(int i = 1; i < arr.length; i++){
-            if(arr[i] != arr[i - 1]) {
-                frequencies[++frequencyIndex][0] = arr[i];
+        frequencies[0] = new Frequency(messages[0].num, 1, messages[0].idx);
+        for(int i = 1; i < messages.length; i++){
+            if(messages[i].num != messages[i].num) {
+                frequencies[++frequencyIndex] = new Frequency(messages[0].num, 1, messages[0].idx);
             }
-            frequencies[frequencyIndex][1]++;
+            frequencies[frequencyIndex].count++;
         }
 
-        Arrays.sort(frequencies, new Comparator<int[]>() {
+        Arrays.sort(frequencies, new Comparator<Frequency>() {
             @Override
-            public int compare(int[] o1, int[] o2){
-                return o2[1] - o1[1];
+            public int compare(Frequency o1, Frequency o2){
+                if(o1.count != o2.count) {
+                    return o2.count - o1.count;
+                }
+                return o1.firstIndex - o2.firstIndex;
             }
         });
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for(int i = 0; i <= frequencyIndex; i++) {
-            for(int j = 0; j < frequencies[i][1]; j++){
-                bw.write(frequencies[i][0] + " ");
-            }
+        for(Frequency frequency : frequencies){
+            bw.write(frequency.num + " ");
         }
         bw.flush();
     }
