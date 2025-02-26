@@ -43,13 +43,13 @@ class Main {
         int frequencyIndex = 0;
         frequencies[0] = new Frequency(messages[0].num, 1, messages[0].idx);
         for(int i = 1; i < messages.length; i++){
-            if(messages[i].num != messages[i].num) {
-                frequencies[++frequencyIndex] = new Frequency(messages[0].num, 1, messages[0].idx);
+            if(messages[i].num != messages[i - 1].num) {
+                frequencies[++frequencyIndex] = new Frequency(messages[i].num, 0, messages[i].idx);
             }
             frequencies[frequencyIndex].count++;
         }
 
-        Arrays.sort(frequencies, new Comparator<Frequency>() {
+        Arrays.sort(frequencies , 0 , frequencyIndex + 1, new Comparator<Frequency>() {
             @Override
             public int compare(Frequency o1, Frequency o2){
                 if(o1.count != o2.count) {
@@ -60,8 +60,10 @@ class Main {
         });
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for(Frequency frequency : frequencies){
-            bw.write(frequency.num + " ");
+        for(int i = 0; i <= frequencyIndex; i++) {
+            while(frequencies[i].count-- > 0){
+                bw.write(frequencies[i].num + " ");
+            }
         }
         bw.flush();
     }
