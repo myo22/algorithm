@@ -32,12 +32,14 @@ public class Algorithm_1931 {
 
         Arrays.sort(meetings, (o1 , o2) -> o1.start - o2.start);
 
+        int meetingIndex = meetings[0].start;
+        int[] meetingCount = new int[meetings[N-1].end - 1];
         for(int i = 0; i < N; i++) {
             int count = 0;
             if(meetings[i].start != meetings[i].end) {
-                meetings[i]
+                meetingCount[++meetingIndex] = meetings[i].
             }
-            count++;
+            meetingCount[meetingIndex]++;
         }
 
     }
