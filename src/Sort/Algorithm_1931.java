@@ -39,8 +39,7 @@ public class Algorithm_1931 {
             }
         });
 
-        int count = 1;
-        int endtime = meetings[0].end;
+        int count = 0, endtime = 0;
         for(int i = 0; i < N; i++) {
             if(meetings[i].start >= endtime) {
                 count++;
