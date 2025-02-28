@@ -2,30 +2,48 @@ import java.io.*;
 import java.util.*;
 
 class Main {
+    static class Meeting {
+        int start;
+        int end;
+
+        Meeting (int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int C = Integer.parseInt(st.nextToken());
+        int N = Integer.parseInt(br.readLine());
+        StringTokenizer st;
 
-        st = new StringTokenizer(br.readLine());
-        Map<Integer, Integer> messages = new LinkedHashMap<>();
+        Meeting[] meetings = new Meeting[N];
+
         for(int i = 0; i < N; i++) {
-            int message =  Integer.parseInt(st.nextToken());
-            messages.put(message, messages.getOrDefault(message, 0) + 1);
+            st = new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
+
+            meetings[i] = new Meeting(start, end);
         }
 
-        Integer[] frequencies = messages.keySet().toArray(new Integer [messages.size()]);
-        Arrays.sort(frequencies, (o1, o2) -> messages.get(o2) - messages.get(o1));
+        Arrays.sort(meetings, new Comparator<Meeting>(){
+            public int compare(Meeting o1,Meeting o2) {
+                if(o1.end == o2.end) {
+                    return o1.start - o2.start;
+                }
+                return o1.end - o2.end;
+            }
+        });
 
-
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        for(Integer frequency: frequencies) {
-            int count = messages.get(frequency);
-            while(count-- > 0){
-                bw.write(frequency + " ");
+        int count = 1;
+        int endtime = meetings[0].end;
+        for(int i = 1; i < N; i++) {
+            if(meetings[i].start >= endtime) {
+                count++;
+                endtime = meetings[i].end;
             }
         }
-        bw.flush();
+        System.out.println(count);
     }
 }

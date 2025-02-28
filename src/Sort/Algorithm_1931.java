@@ -30,17 +30,23 @@ public class Algorithm_1931 {
             meetings[i] = new Meeting(start, end);
         }
 
-        Arrays.sort(meetings, (o1 , o2) -> o1.start - o2.start);
-
-        int meetingIndex = meetings[0].start;
-        int[] meetingCount = new int[meetings[N-1].end - 1];
-        for(int i = 0; i < N; i++) {
-            int count = 0;
-            if(meetings[i].start != meetings[i].end) {
-                meetingCount[++meetingIndex] = meetings[i].
+        Arrays.sort(meetings, new Comparator<Meeting>(){
+            public int compare(Meeting o1, Meeting o2) {
+                if(o1.end == o2.end) {
+                    return o1.start - o2.start;
+                }
+                return o1.end - o2.end;
             }
-            meetingCount[meetingIndex]++;
-        }
+        });
 
+        int count = 1;
+        int endtime = meetings[0].end;
+        for(int i = 0; i < N; i++) {
+            if(meetings[i].start >= endtime) {
+                count++;
+                endtime = meetings[i].end;
+            }
+        }
+        System.out.println(count);
     }
 }
