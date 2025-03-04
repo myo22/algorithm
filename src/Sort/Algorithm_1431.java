@@ -1,7 +1,8 @@
-import java.io.*;
+package Sort;
+
 import java.util.*;
 
-class Main {
+public class Algorithm_1431 {
     static class Number {
         String number;
         int sum;
