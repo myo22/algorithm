@@ -21,9 +21,9 @@ class Main {
         for(int i = 0; i < N; i++) {
             String number = sc.next();
             int sum = 0;
-            for(int j = 0;  j < number.length(); j++) {
+            for (int j = 0; j < number.length(); j++) {
                 char digit = number.charAt(j);
-                if(Character.isDigit(digit)){
+                if (Character.isDigit(digit)) {
                     sum += (digit - '0');
                 }
             }
@@ -34,8 +34,7 @@ class Main {
             public int compare(Number o1, Number o2) {
                 if(o1.number.length() != o2.number.length()) {
                     return o1.number.length() - o2.number.length();
-                }else if(o1.number.length() == o2.number.length() &&
-                        o1.sum != 0 || o2.sum != 0) {
+                }else if(o1.sum != o2.sum) {
                     return o1.sum - o2.sum;
                 }
                 return o1.number.compareTo(o2.number);
