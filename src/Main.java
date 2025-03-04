@@ -35,7 +35,7 @@ class Main {
                 if(o1.number.length() != o2.number.length()) {
                     return o1.number.length() - o2.number.length();
                 }else if(o1.number.length() == o2.number.length() &&
-                        o1.sum != 0 && o2.sum != 0) {
+                        o1.sum != 0 || o2.sum != 0) {
                     return o1.sum - o2.sum;
                 }
                 return o1.number.compareTo(o2.number);
