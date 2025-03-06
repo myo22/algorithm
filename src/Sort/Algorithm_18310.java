@@ -1,7 +1,9 @@
-import java.io.*;
-import java.util.*;
+package Sort;
 
-class Main {
+import java.util.*;
+import java.io.*;
+
+public class Algorithm_18310 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
@@ -14,10 +16,19 @@ class Main {
 
         Arrays.sort(house);
 
-        int minDistance = house[(N-1) / 2];
+        double meDistance = (house[0] + house[N - 1]) / 2.0;
 
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        bw.write(minDistance);
-        bw.flush();
+        double min = meDistance;
+        int result = 0;
+        for(int i = 1; i < N - 1; i++) {
+           double minDistance = Math.abs(house[i] - meDistance);
+           if(min > minDistance) {
+                min = minDistance;
+                result = house[i];
+           }
+        }
+
+        System.out.println(result);
+
     }
 }
