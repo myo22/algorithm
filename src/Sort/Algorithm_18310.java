@@ -16,19 +16,10 @@ public class Algorithm_18310 {
 
         Arrays.sort(house);
 
-        double meDistance = (house[0] + house[N - 1]) / 2.0;
+        int minDistance = house[(N-1) / 2];
 
-        double min = meDistance;
-        int result = 0;
-        for(int i = 1; i < N - 1; i++) {
-           double minDistance = Math.abs(house[i] - meDistance);
-           if(min > minDistance) {
-                min = minDistance;
-                result = house[i];
-           }
-        }
-
-        System.out.println(result);
-
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        bw.write(minDistance);
+        bw.flush();
     }
 }
