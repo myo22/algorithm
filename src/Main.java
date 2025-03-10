@@ -28,6 +28,9 @@ class Main {
 
         }
 
-        System.out.print(sb);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        bw.write(String.valueOf(sb));
+        bw.flush();
     }
 }
