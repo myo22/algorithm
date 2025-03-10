@@ -16,20 +16,21 @@ public class Algorithm_11659 {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        StringBuilder sb = new StringBuilder();
+        int[] acc = new int[N + 1];
+        int sum = 0;
+        for(int i = 1; i <= N; i++) {
+            sum += arr[i - 1];
+            acc[i] = sum;
+        }
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         for(int k = 0; k < M; k++) {
             st = new StringTokenizer(br.readLine());
             int i = Integer.parseInt(st.nextToken());
             int j = Integer.parseInt(st.nextToken());
-            int sum = 0;
-            for(int l = i - 1; l < j; l++) {
-                sum += arr[l];
-            }
-            sb.append(sum + "\n");
-
+            bw.write(acc[j] - acc[i - 1] + "\n");
         }
-
-        System.out.print(sb);
+        bw.flush();
     }
 }
