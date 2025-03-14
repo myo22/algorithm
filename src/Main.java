@@ -14,26 +14,21 @@ class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        int[] Queries = new int[N + 1];
-        Queries[0] = 0;
+        int[] acc = new int[N + 1];
+        acc[0] = 0;
         for(int i = 1; i <= N; i++) {
-            Queries[i] = Queries[i-1] ^ arr[i-1];
+            acc[i] = acc[i-1] ^ arr[i-1];
         }
 
-        int[] answer = new int[Q];
 
+        int ans = 0;
         for(int i = 0; i < Q; i++) {
             st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            answer[i] = Queries[e] ^ Queries[s-1];
+            ans ^= acc[e] ^ acc[s-1];
         }
 
-        int result = 0;
-        for(int i = 0; i < Q; i++) {
-            result ^= answer[i];
-        }
-
-        System.out.println(result);
+        System.out.println(ans);
     }
 }
