@@ -11,7 +11,7 @@ class Main {
 
         int[] arr = new int[N+1];
         st = new StringTokenizer(br.readLine());
-        for(int i = 1; i < N; i++) {
+        for(int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -21,11 +21,7 @@ class Main {
             int b = Integer.parseInt(st.nextToken());
             int k = Integer.parseInt(st.nextToken());
             for(int i = a; i <= b; i++) {
-                if(k >= 0) {
-                    arr[i] += k;
-                }else{
-                    arr[i] -= Math.abs(k);
-                }
+                arr[i] += k;
             }
         }
 
