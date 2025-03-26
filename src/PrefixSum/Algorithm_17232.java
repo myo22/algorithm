@@ -1,7 +1,9 @@
-import java.io.*;
-import java.util.*;
+package PrefixSum;
 
-class Main {
+import java.util.*;
+import java.io.*;
+
+public class Algorithm_17232 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
