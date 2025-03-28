@@ -18,6 +18,7 @@ public class Algorithm_1920 {
         return false;
     }
 
+    // 이분 탐색으로 푸는 방법
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -37,4 +38,20 @@ public class Algorithm_1920 {
             System.out.println(ans >= 0 ? 1 : 0);
         }
     }
+
+//    // Set으로 푸는 방법
+//    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//        int N = sc.nextInt();
+//        Set<Integer> set = new HashSet<>();
+//        for(int i = 0; i < N; i++) {
+//            set.add(sc.nextInt());
+//        }
+//
+//        int M = sc.nextInt();
+//        for(int i = 0; i < M; i++) {
+//            int K = sc.nextInt();
+//            System.out.println(set.contains(K) ? 1 : 0);
+//        }
+//    }
 }

@@ -16,23 +16,38 @@ class Main {
         return false;
     }
 
+//    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//        int N = sc.nextInt();
+//        int[] arr = new int[N];
+//        for(int i = 0; i < N; i++) {
+//            arr[i] = sc.nextInt();
+//        }
+//
+//        Arrays.sort(arr);
+//
+//        int M = sc.nextInt();
+//        for(int i = 0; i < M; i++) {
+//            int K = sc.nextInt();
+//            // 직접 구현을 안하더라도 구할 수 있다.
+    ////            boolean ans = isExist(arr, K);
+//            int ans = Arrays.binarySearch(arr, K);
+//            System.out.println(ans >= 0 ? 1 : 0);
+//        }
+//    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        int[] arr = new int[N];
+        Set<Integer> set = new HashSet<>();
         for(int i = 0; i < N; i++) {
-            arr[i] = sc.nextInt();
+            set.add(sc.nextInt());
         }
-
-        Arrays.sort(arr);
 
         int M = sc.nextInt();
         for(int i = 0; i < M; i++) {
             int K = sc.nextInt();
-            // 직접 구현을 안하더라도 구할 수 있다.
-//            boolean ans = isExist(arr, K);
-            int ans = Arrays.binarySearch(arr, K);
-            System.out.println(ans >= 0 ? 1 : 0);
+            System.out.println(set.contains(K) ? 1 : 0);
         }
     }
 }
