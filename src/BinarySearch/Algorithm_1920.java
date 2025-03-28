@@ -31,11 +31,8 @@ public class Algorithm_1920 {
         int M = sc.nextInt();
         for(int i = 0; i < M; i++) {
             int K = sc.nextInt();
-            if(isExist(arr, K)){
-                System.out.println(1);
-            }else{
-                System.out.println(0);
-            }
+            boolean ans = isExist(arr, K);
+            System.out.println(ans ? 1 : 0);
         }
     }
 }
