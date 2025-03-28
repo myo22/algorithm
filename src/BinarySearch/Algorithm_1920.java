@@ -1,6 +1,8 @@
+package BinarySearch;
+
 import java.util.*;
 
-class Main {
+public class Algorithm_1920 {
     public static boolean isExist(int[] arr, int K) {
         int l = 0, r = arr.length - 1;
         while(l <= r) {
