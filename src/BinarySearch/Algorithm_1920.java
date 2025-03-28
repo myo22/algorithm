@@ -31,8 +31,10 @@ public class Algorithm_1920 {
         int M = sc.nextInt();
         for(int i = 0; i < M; i++) {
             int K = sc.nextInt();
-            boolean ans = isExist(arr, K);
-            System.out.println(ans ? 1 : 0);
+            // 직접 구현을 안하더라도 구할 수 있다.
+//            boolean ans = isExist(arr, K);
+            int ans = Arrays.binarySearch(arr, K);
+            System.out.println(ans >= 0 ? 1 : 0);
         }
     }
 }
