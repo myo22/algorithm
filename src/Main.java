@@ -31,6 +31,9 @@ class Main {
         int count = 0;
         while(M-- > 0) {
             String a = sc.next();
+//            if(Arrays.binarySearch(arr, a) >= 0){
+//                count++;
+//            }
             if(isExist(arr, a)){
                 count++;
             }
