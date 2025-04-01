@@ -1,6 +1,8 @@
+package BinarySearch;
+
 import java.util.*;
 
-class Main {
+public class Algorithm_14425 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
