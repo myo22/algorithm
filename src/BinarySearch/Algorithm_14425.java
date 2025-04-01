@@ -28,6 +28,7 @@ public class Algorithm_14425 {
             arr[i] = sc.next();
         }
 
+        // 1. Binary Search를 적용시키기 위해 정렬한다.
         Arrays.sort(arr);
 
         int count = 0;
@@ -36,6 +37,7 @@ public class Algorithm_14425 {
 //            if(Arrays.binarySearch(arr, a) >= 0){
 //                count++;
 //            }
+            // 2. arr에 a가 있는지 확인한다.
             if(isExist(arr, a)){
                 count++;
             }
