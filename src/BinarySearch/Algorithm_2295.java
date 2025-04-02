@@ -27,6 +27,8 @@ public class Algorithm_2295 {
             arr[i] = sc.nextInt();
         }
 
+        // A + B + C = X -> A + B = X - C
+        // 1. A + B의 집합을 만든다.
         int[] sums = new int[N * (N + 1) / 2];
         int sumIndex = 0;
         for(int i = 0; i < N; i++) {
@@ -37,7 +39,7 @@ public class Algorithm_2295 {
 
         Arrays.sort(sums);
 
-
+        // 2. 모든 X - C에 대해 A + B 집합에 존재하는지 확인한다.
         int answer = -1;
         for (int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
@@ -47,7 +49,9 @@ public class Algorithm_2295 {
                 }
             }
         }
+        // 3. A + B = X - C을 만족하는 X 중 최대값을 출력한다.
         System.out.println(answer);
+
     }
 
     // Set으로 푸는 방법
