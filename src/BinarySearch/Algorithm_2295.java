@@ -1,6 +1,8 @@
+package BinarySearch;
+
 import java.util.*;
 
-class Main {
+public class Algorithm_2295 {
     public static boolean isExist(int[] arr, int k) {
         int l = 0, r = arr.length - 1;
         while(l <= r) {
@@ -32,7 +34,7 @@ class Main {
                 for(int z = y + 1; z < N; z++) {
                     int k = arr[x] + arr[y] + arr[z];
                     if(isExist(arr, k) && k > d){
-                        d = k;
+                      d = k;
                     }
                 }
             }
