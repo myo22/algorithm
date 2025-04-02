@@ -17,6 +17,7 @@ public class Algorithm_2295 {
         }
         return false;
     }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -26,19 +27,23 @@ public class Algorithm_2295 {
             arr[i] = sc.nextInt();
         }
 
-        Arrays.sort(arr);
+        Set<Integer> set = new HashSet<>();
 
-        int d = 0;
-        for (int x = 0; x < N - 1; x++) {
-            for(int y = 0; y < N - 1; y++) {
-                for(int z = 0; z < N - 1; z++) {
-                    int k = arr[x] + arr[y] + arr[z];
-                    if(isExist(arr, k) && k > d){
-                        d = k;
-                    }
+        for(int i = 0; i < N; i++) {
+            for(int j = i; j < N; j++) {
+                set.add(arr[i] + arr[j]);
+            }
+        }
+
+        int answer = -1;
+        for (int i = 0; i < N; i++) {
+            for(int j = 0; j < N; j++) {
+                int target = arr[i] - arr[j];
+                if(set.contains(target)){
+                    answer = Math.max(answer, arr[i]);
                 }
             }
         }
-        System.out.println(d);
+        System.out.println(answer);
     }
 }
