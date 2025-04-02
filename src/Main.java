@@ -27,9 +27,9 @@ class Main {
         Arrays.sort(arr);
 
         int d = 0;
-        for (int x = 0; x < N; x++) {
-            for(int y = x + 1; y < N; y++) {
-                for(int z = y + 1; z < N; z++) {
+        for (int x = 0; x < N - 1; x++) {
+            for(int y = 0; y < N - 1; y++) {
+                for(int z = 0; z < N - 1; z++) {
                     int k = arr[x] + arr[y] + arr[z];
                     if(isExist(arr, k) && k > d){
                         d = k;
