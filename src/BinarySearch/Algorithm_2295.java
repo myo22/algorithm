@@ -44,6 +44,7 @@ public class Algorithm_2295 {
         for (int i = 0; i < N; i++) {
             for(int j = 0; j < N; j++) {
                 int target = arr[i] - arr[j];
+                // if(Arrays.binarySearch(sums, target) >= 0)
                 if(isExist(sums, target)){
                     answer = Math.max(answer, arr[i]);
                 }
