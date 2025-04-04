@@ -35,11 +35,11 @@ public class Algorithm_2470 {
         int answer = 2000000000;
         int ansIndex1 = -1, ansIndex2 = -1;
         for(int i = 0; i < N; i++) {
+            ansIndex1 = i;
             ansIndex2 = isExist(arr, i + 1, arr[i]);
-            int property = Math.abs(arr[i] + arr[ansIndex2]);
+            int property = Math.abs(arr[ansIndex1] + arr[ansIndex2]);
             if(property < answer) {
                 answer = property;
-                ansIndex1 = i;
             }
         }
 
