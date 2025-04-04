@@ -4,6 +4,22 @@ import java.util.*;
 import java.io.*;
 
 public class Algorithm_2470 {
+    public static int isExist(int[] arr, int i, int k) {
+        int r = i, l = arr.length - 1;
+        int m = 0;
+        while(r <= l) {
+            m = (r + l) / 2;
+            if(arr[m] + k < 0) {
+                r = m + 1;
+            }else if(arr[m] + k > 0) {
+                l = m - 1;
+            }else{
+                return m;
+            }
+        }
+        return m;
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
@@ -16,21 +32,19 @@ public class Algorithm_2470 {
 
         Arrays.sort(arr);
 
-        int answer = Integer.MAX_VALUE;
-        int a = 0, b = 0;
+        int answer = 2000000000;
+        int ansIndex1 = -1, ansIndex2 = -1;
         for(int i = 0; i < N; i++) {
-            for(int j = i + 1; j < N; j++) {
-                int property = Math.abs(arr[i] + arr[j]);
-                 if(property < answer) {
-                     answer = property;
-                     a = arr[i];
-                     b = arr[j];
-                 }
+            ansIndex2 = isExist(arr, i + 1, arr[i]);
+            int property = Math.abs(arr[i] + arr[ansIndex2]);
+            if(property < answer) {
+                answer = property;
+                ansIndex1 = i;
             }
         }
 
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        bw.write(a + " " + b);
+        bw.write(arr[ansIndex1] + " " + arr[ansIndex2]);
         bw.flush();
     }
 }
