@@ -23,7 +23,7 @@ public class Algorithm_2470 {
             }else if(sum > 0) {
                 r = m - 1;
             }else{
-                return m;
+                return arr[m];
             }
         }
         return optimalPairValue;

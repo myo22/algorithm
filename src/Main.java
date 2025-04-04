@@ -3,9 +3,9 @@ import java.util.*;
 
 class Main {
     static int findOptimalPair(int[] arr, int fromIndex, int toIndex ,int value) {
-        int l = fromIndex, r = toIndex;
-        int optimalPairValue = arr[fromIndex];
+        int optimalPairValue = 0;
         int optimalAbs = 2000000000;
+        int l = fromIndex, r = toIndex;
 
         while(l <= r) {
             int m = (l + r) / 2;
@@ -21,7 +21,7 @@ class Main {
             }else if(sum > 0) {
                 r = m - 1;
             }else{
-                return m;
+                return arr[m];
             }
         }
         return optimalPairValue;
