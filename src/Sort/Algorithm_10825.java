@@ -1,7 +1,12 @@
-import java.io.*;
-import java.util.*;
+package Sort;
 
-class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Algorithm_10825 {
     static StringBuilder sb = new StringBuilder();
 
     static void input () throws IOException {
@@ -30,11 +35,11 @@ class Main {
         int english;
         int math;
 
-       Student(String name, int korean, int english, int math) {
+        Student(String name, int korean, int english, int math) {
             this.name = name;
-           this.korean = korean;
-           this.english = english;
-           this.math = math;
+            this.korean = korean;
+            this.english = english;
+            this.math = math;
         }
 
         @Override
