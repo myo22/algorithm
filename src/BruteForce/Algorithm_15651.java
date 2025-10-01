@@ -1,7 +1,9 @@
+package BruteForce;
+
 import java.io.*;
 import java.util.*;
 
-class Main {
+public class Algorithm_15651 {
     static StringBuilder sb = new StringBuilder();
 
     static void input() throws IOException {
