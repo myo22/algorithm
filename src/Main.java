@@ -4,29 +4,36 @@ import java.util.*;
 class Main {
     static StringBuilder sb = new StringBuilder();
 
+    static int N, M, V;
+    static ArrayList<Integer>[] adj;
+    static boolean[] visit;
+
     static void input () throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         V = Integer.parseInt(st.nextToken());
-        adj = new int[N + 1][N + 1];
+        adj = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) {
+            adj[i] = new ArrayList<Integer>();
+        }
         for (int i = 1; i <= M; i++) {
             st = new StringTokenizer(br.readLine());
             int x =Integer.parseInt(st.nextToken());
             int y =Integer.parseInt(st.nextToken());
-            adj[x][y] = 1;
-            adj[y][x] = 1;
+            adj[x].add(y);
+            adj[y].add(x);
+        }
+        for (int i = 1; i <= N; i++) {
+            Collections.sort(adj[i]);
         }
     }
 
     static void dfs (int x) {
         visit[x] = true;
         sb.append(x).append(' ');
-        for(int y = 1; y <= N; y++ ) {
-            if(adj[x][y] == 0) {
-                continue;
-            }
+        for(int y : adj[x]) {
             if (visit[y]) {
                 continue;
             }
@@ -42,10 +49,7 @@ class Main {
             x = que.poll();
             visit[x] = true;
             sb.append(x).append(' ');
-            for(int y = 1; y <= N; y++ ) {
-                if(adj[x][y] == 0) {
-                    continue;
-                }
+            for(int y : adj[x]) {
                 if (visit[y]) {
                     continue;
                 }
@@ -66,10 +70,6 @@ class Main {
 
         System.out.println(sb);
     }
-
-    static int N, M, V;
-    static int[][] adj;
-    static boolean[] visit;
 
     public static void main(String[] args) throws IOException {
         input();
