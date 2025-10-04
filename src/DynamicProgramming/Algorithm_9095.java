@@ -1,7 +1,10 @@
-import java.io.*;
-import java.util.*;
+package DynamicProgramming;
 
-class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Algorithm_9095 {
     static StringBuilder sb = new StringBuilder();
 
     static int T, cnt;
@@ -20,7 +23,7 @@ class Main {
     }
 
 
-    static void pro() throws IOException{
+    static void pro() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         T = Integer.parseInt(br.readLine());
         for (int i = 0; i < T; i++) {
