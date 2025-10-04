@@ -1,11 +1,14 @@
-import java.io.*;
-import java.util.*;
+package DynamicProgramming;
 
-class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Algorithm_11726 {
     static int N;
     static int[] Dy;
 
-    static void input() throws IOException{
+    static void input() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
     }
