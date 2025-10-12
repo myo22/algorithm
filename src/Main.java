@@ -3,43 +3,57 @@ import java.util.*;
 
 class Main {
     static StringBuilder sb = new StringBuilder();
-    static int N, M;
-    static int[] selected;
+    static int N;
+    static Student[] arr;
 
     static void input() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        selected = new int[M + 1];
+        arr = new Student[N];
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            arr[i] = new Student(st.nextToken(), Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()),Integer.parseInt(st.nextToken()));
+        }
     }
 
-    static void rec_func(int k) {
-        if(M + 1 == k) {
-            for (int i = 1; i <= M; i++) {
-                sb.append(selected[i]).append(" ");
+    static class Student implements Comparable<Student>{
+        public String name;
+        public int Korean, English, Math;
+
+        public Student(String name, int Korean, int English, int Math) {
+            this.name = name;
+            this.Korean = Korean;
+            this.English = English;
+            this.Math = Math;
+        }
+
+        @Override
+        public int compareTo(Student o) {
+            if(Korean != o.Korean) {
+                return o.Korean - Korean;
             }
-            sb.append("\n");
-        } else {
-            for (int cand = 1; cand <= N; cand++) {
-                boolean isUsed = false;
-                for (int i = 1; i < k; i++) {
-                    if (cand == selected[i]) {
-                        isUsed = true;
-                    }
-                }
-                if (!isUsed) {
-                    selected[k] = cand;
-                    rec_func(k + 1);
-                    selected[k] = 0;
-                }
+            if(English != o.English) {
+                return English - o.English;
             }
+            if(Math != o.Math) {
+                return o.Math - Math;
+            }
+            return name.compareTo(o.name);
+        }
+    }
+
+    static void pro() {
+        Arrays.sort(arr);
+
+        for(int i = 0; i < N; i++) {
+            sb.append(arr[i].name).append("\n");
         }
     }
 
     public static void main(String[] args) throws IOException {
         input();
-        rec_func(1);
+        pro();
 
         System.out.println(sb.toString());
     }
