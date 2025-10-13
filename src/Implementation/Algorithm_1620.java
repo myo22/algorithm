@@ -1,9 +1,13 @@
-import Implementation.Algorithm_1620;
+package Implementation;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
 
-class Main {
+public class Algorithm_1620 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
