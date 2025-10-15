@@ -1,7 +1,11 @@
-import java.io.*;
-import java.util.*;
+package Implementation;
 
-class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Algorithm_2444 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
@@ -81,3 +85,4 @@ class Main {
         }
     }
 }
+
