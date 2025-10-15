@@ -13,6 +13,9 @@ class Main {
 
     static void pro() {
         for (int i = 1; i <= N; i++) {
+            for (int k = 1; k < i; k++) {
+                sb.append(" ");
+            }
             for (int k = 0; k <= N - i; k++) {
                 sb.append("*");
             }
