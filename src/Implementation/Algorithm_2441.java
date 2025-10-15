@@ -1,7 +1,11 @@
-import java.io.*;
-import java.util.*;
+package Implementation;
 
-class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Algorithm_2441 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
@@ -13,6 +17,9 @@ class Main {
 
     static void pro() {
         for (int i = 1; i <= N; i++) {
+            for (int k = 1; k < i; k++) {
+                sb.append(" ");
+            }
             for (int k = 0; k <= N - i; k++) {
                 sb.append("*");
             }

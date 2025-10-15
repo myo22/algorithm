@@ -1,7 +1,9 @@
+package Implementation;
+
 import java.io.*;
 import java.util.*;
 
-class Main {
+public class Algorithm_2440 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
