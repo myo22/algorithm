@@ -1,9 +1,7 @@
 package Implementation;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
 
 public class Algorithm_2441 {
     static FastReader scan = new FastReader();
