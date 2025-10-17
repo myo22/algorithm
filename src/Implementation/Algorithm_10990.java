@@ -1,10 +1,11 @@
-import Implementation.Algorithm_10990;
-import Implementation.Algorithm_2523;
+package Implementation;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-class Main {
+public class Algorithm_10990 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
@@ -79,3 +80,4 @@ class Main {
         }
     }
 }
+
