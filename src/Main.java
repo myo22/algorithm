@@ -4,75 +4,53 @@ import java.util.*;
 class Main {
     static FastReader scan = new FastReader();
 
-    static int A, B, C, N;
-    static long sum = 0;
-    static StringBuilder sb;
-    static Map<String, Integer> normal  = new HashMap<>();
-    static Map<String, Integer> special  = new HashMap<>();
-    static Map<String, String> service = new HashMap<>();
-    static String[] order;
+    static int T, N, M;
+    static StringBuilder sb = new StringBuilder();
+    static int[] A, B;
+
+    static int lower_bound(int[] A, int L, int R, int x) {
+        int result = L - 1;
+        while(L <= R) {
+            int mid = (L + R) / 2;
+            if(A[mid] < x) {
+                result = mid;
+                L = mid + 1;
+            } else{
+                R = mid - 1;
+            }
+        }
+        return result;
+    }
 
     static void input() {
-        sb = new StringBuilder();
-        A = scan.nextInt();
-        B = scan.nextInt();
-        C = scan.nextInt();
-        for (int i = 0; i < A; i++) {
-            normal.put(scan.next(),  scan.nextInt());
-        }
-        for (int i = 0; i < B; i++) {
-            special.put(scan.next(),  scan.nextInt());
-        }
-        for (int i = 0; i < C; i++) {
-            service.put(scan.next() , " ");
-        }
         N = scan.nextInt();
-        order = new String[N];
-        for (int i = 0; i < N; i++) {
-            order[i] = scan.next();
+        M = scan.nextInt();
+        A = new int[N + 1];
+        B = new int[M + 1];
+        for (int i = 1; i <= N; i++) {
+            A[i] = scan.nextInt();
+        }
+        for (int i = 1; i <= M; i++) {
+            B[i] = scan.nextInt();
         }
     }
 
     static void pro() {
-        long totalGeneral = 0L;
-        long totalSpecial = 0L;
-        int serviceCount = 0;
+        Arrays.sort(B);
 
-        // 1) 전체 주문을 먼저 집계하면서 '존재하지 않는 메뉴' 여부 체크
-        for (int i = 0; i < N; i++) {
-            String name = order[i];
-            if (normal.containsKey(name)) {
-                totalGeneral += normal.get(name);
-            } else if (special.containsKey(name)) {
-                totalSpecial += special.get(name);
-            } else if (service.containsKey(name)) {
-                serviceCount++;
-            } else {
-                sb.append("No");
-                return;
-            }
+        int ans = 0;
+        for (int i = 1; i <= N; i++) {
+            ans += lower_bound(B, 1, M, A[i]);
         }
-
-        if (totalSpecial > 0 && totalGeneral < 20000L) {
-            sb.append("No");
-            return;
-        }
-
-        if (serviceCount > 1) {
-            sb.append("No");
-            return;
-        }
-        if (serviceCount == 1 && (totalGeneral + totalSpecial) < 50000L) {
-            sb.append("No");
-            return;
-        }
-
-        sb.append("Okay");
+        sb.append(ans).append("\n");
     }
 
     public static void main(String[] args){
-        input();
-        pro();
+        T = scan.nextInt();
+        for (int i = 0; i < T; i++) {
+            input();
+            pro();
+        }
 
         System.out.println(sb.toString());
     }
