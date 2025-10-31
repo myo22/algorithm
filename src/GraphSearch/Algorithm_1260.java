@@ -51,7 +51,7 @@ public class Algorithm_1260 {
         visit[x] = true;
         while(!que.isEmpty()) {
             x = que.poll();
-            visit[x] = true;
+
             sb.append(x).append(' ');
             for(int y : adj[x]) {
                 if (visit[y]) {
