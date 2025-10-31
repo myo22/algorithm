@@ -5,40 +5,63 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, M, count;
-    static int[][] A;
-    static boolean[] visit;
+    static int N, group_cnt;;
+    static String[] adj;
+    static List<Integer> group;
+    static int[][] dir = {{1, 0}, {0, 1}, {-1 , 0}, {0, -1}};
+    static boolean[][] visit;
 
-    static void dfs(int x) {
-        visit[x] = true;
-        for(int y = 1; y <= N; y++) {
-            if (A[x][y] == 0) continue;
-
-            if (visit[y]) {
+    static void dfs(int x, int y) {
+        group_cnt++;
+        visit[x][y] = true;
+        for (int k = 0; k < 4; k++) {
+            int nx = x + dir[k][0];
+            int ny = y + dir[k][1];
+            if (nx < 0 || ny < 0 || ny >= N | nx >= N) {
                 continue;
             }
-            count++;
-            dfs(y);
+            if (adj[nx].charAt(ny) == '0') {
+                continue;
+            }
+            if (visit[nx][ny]) {
+                continue;
+            }
+            dfs(nx, ny);
         }
     }
 
-
     static void input() {
         N = scan.nextInt();
-        M = scan.nextInt();
-        A = new int[N + 1][N + 1];
-        visit = new boolean[N + 1];
-        for (int i = 0; i < M; i++) {
-            int x = scan.nextInt(), y = scan.nextInt();
-            A[x][y] = A[y][x] = 1;
+        adj = new String[N];
+        for (int i = 0; i < N; i++) {
+            adj[i] = scan.next();
+        }
+    }
+
+    static void pro() {
+        visit = new boolean[N][N];
+        group = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if(!visit[i][j] && adj[i].charAt(j) == '1') {
+                    group_cnt = 0;
+                    dfs(i, j);
+                    group.add(group_cnt);
+                }
+            }
+        }
+        Collections.sort(group);
+        sb.append(group.size()).append("\n");
+        for(int a : group) {
+            sb.append(a).append("\n");
         }
     }
 
     public static void main(String[] args){
         input();
-        dfs(1);
+        pro();
 
-        System.out.println(count);
+        System.out.println(sb);
     }
 
     static class FastReader {
