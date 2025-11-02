@@ -5,30 +5,22 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int T;
-    static int[] arr, Dy;
+    static int n;
+    static int[] Dy;
 
 
     static void input() {
-        T = scan.nextInt();
-        arr = new int[T];
-        for(int i = 0; i < T; i++) {
-            arr[i] = scan.nextInt();
-        }
+        n = scan.nextInt();
     }
 
     static void pro() {
-        Dy = new int[12];
+        Dy = new int[1005];
         Dy[1] = 1;
         Dy[2] = 2;
-        Dy[3] = 4;
-        for(int i = 4; i <= 11; i++) {
-            Dy[i] = Dy[i - 1] + Dy[i - 2] + Dy[i - 3];
+        for(int i = 3; i <= n; i++) {
+            Dy[i] = (Dy[i - 1] + Dy[i - 2])% 10007;
         }
-        for(int i = 0; i < T; i++) {
-            sb.append(Dy[arr[i]]).append("\n");
-        }
-        System.out.println(sb);
+        System.out.println(Dy[n]);
     }
 
     public static void main(String[] args){
