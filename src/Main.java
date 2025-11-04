@@ -20,12 +20,12 @@ class Main {
                 sb.append(selected[i]).append(" ");
             }
             sb.append("\n");
-        } else {
-            for (int i = selected[k - 1] + 1; i <= N; i++) {
-                selected[k] = i;
-                func_rec(k + 1);
-                selected[k] = 0;
-            }
+            return;
+        }
+        for (int i = selected[k - 1] + 1; i <= N; i++) {
+            selected[k] = i;
+            func_rec(k + 1);
+            selected[k] = 0;
         }
     }
 
