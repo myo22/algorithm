@@ -1,6 +1,6 @@
 # 1. 베이스 이미지 선택
 # openjdk 11 버전이 미리 설치된 가벼운 리눅스 이미지를 기반으로 시작합니다.
-FROM openjdk:11-jdk-slim
+FROM eclipse-temurin:11-jdk-alpine
 
 # 2. 작업 디렉토리 설정
 # 컨테이너 안에서 명령어를 실행할 기본 폴더를 /app 으로 지정합니다.
