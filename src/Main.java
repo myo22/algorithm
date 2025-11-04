@@ -5,27 +5,35 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int n;
-    static int[] Dy;
-
+    static int N, M;
+    static int[] selected;
 
     static void input() {
-        n = scan.nextInt();
+        N = scan.nextInt();
+        M = scan.nextInt();
+        selected = new int[M + 1];
     }
 
-    static void pro() {
-        Dy = new int[1005];
-        Dy[1] = 1;
-        Dy[2] = 2;
-        for(int i = 3; i <= n; i++) {
-            Dy[i] = (Dy[i - 1] + Dy[i - 2])% 10007;
+    static void func_rec(int k){
+        if(k == M + 1) {
+            for (int i = 1; i <= M; i++) {
+                sb.append(selected[i]).append(" ");
+            }
+            sb.append("\n");
+        } else {
+            for (int i = selected[k - 1] + 1; i <= N; i++) {
+                selected[k] = i;
+                func_rec(k + 1);
+                selected[k] = 0;
+            }
         }
-        System.out.println(Dy[n]);
     }
 
     public static void main(String[] args){
         input();
-        pro();
+        func_rec(1);
+
+        System.out.println(sb.toString());
     }
 
     static class FastReader {
