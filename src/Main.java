@@ -5,46 +5,41 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N;
-    static int[] P;
-    static Elem[] B;
+    static int N, S;
+    static int[] arr;
 
     static void input() {
         N = scan.nextInt();
-        B = new Elem[N];
-        P = new int[N];
-        for (int i = 0; i < N; i++) {
-            B[i] = new Elem();
-            B[i].value = scan.nextInt();;
-            B[i].index = i;
-        }
-    }
-
-    static class Elem  implements Comparable<Elem>{
-        int value;
-        int index;
-
-        @Override
-        public int compareTo(Elem o) {
-            return this.value - o.value;
+        S = scan.nextInt();
+        arr = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            arr[i] = scan.nextInt();
         }
     }
 
     static void pro() {
-        Arrays.sort(B);
-        for (int i = 0; i < N; i++) {
-            P[B[i].index] = i;
+        int R = 0, sum = 0, ans = N + 1;
+        for (int L = 1; L <= N; L++) {
+            sum -= arr[L - 1];
+
+            while (R + 1 <= N && sum < S) {
+                sum += arr[++R];
+
+                if(sum >= S) {
+                    ans = Math.min(ans, R - L + 1);
+                }
+            }
         }
-        for (int i = 0; i < N; i++) {
-            sb.append(P[i]).append(" ");
+
+        if(ans == N + 1) {
+            ans = 0;
         }
+        System.out.println(ans);
     }
 
     public static void main(String[] args){
         input();
         pro();
-
-        System.out.println(sb.toString());
     }
 
     static class FastReader {
