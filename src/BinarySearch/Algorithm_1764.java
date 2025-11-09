@@ -1,7 +1,12 @@
-import java.io.*;
-import java.util.*;
+package BinarySearch;
 
-class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Algorithm_1764 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
