@@ -5,33 +5,44 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, M;
-    static int[] selected;
+    static int N;
+    static int[] P;
+    static Elem[] B;
 
     static void input() {
         N = scan.nextInt();
-        M = scan.nextInt();
-        selected = new int[M + 1];
+        B = new Elem[N];
+        P = new int[N];
+        for (int i = 0; i < N; i++) {
+            B[i] = new Elem();
+            B[i].value = scan.nextInt();;
+            B[i].index = i;
+        }
     }
 
-    static void func_rec(int k){
-        if(k == M + 1) {
-            for (int i = 1; i <= M; i++) {
-                sb.append(selected[i]).append(" ");
-            }
-            sb.append("\n");
-            return;
+    static class Elem  implements Comparable<Elem>{
+        int value;
+        int index;
+
+        @Override
+        public int compareTo(Elem o) {
+            return this.value - o.value;
         }
-        for (int i = selected[k - 1] + 1; i <= N; i++) {
-            selected[k] = i;
-            func_rec(k + 1);
-            selected[k] = 0;
+    }
+
+    static void pro() {
+        Arrays.sort(B);
+        for (int i = 0; i < N; i++) {
+            P[B[i].index] = i;
+        }
+        for (int i = 0; i < N; i++) {
+            sb.append(P[i]).append(" ");
         }
     }
 
     public static void main(String[] args){
         input();
-        func_rec(1);
+        pro();
 
         System.out.println(sb.toString());
     }
