@@ -5,53 +5,35 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N;
-    static String[] A, B;
+    static int N, M;
+    static int[] selected;
 
     static void input() {
         N = scan.nextInt();
-        A = new String[N + 1];
-        for (int i = 1; i <= N; i++) {
-            A[i] = scan.nextLine();
-        }
+        M = scan.nextInt();
+        selected = new int[N + 1];
     }
 
-    static boolean binary_search(String[] A, int left, int right, String X) {
-        while(left <= right) {
-            int mid = (left + right) / 2;
-            if (A[mid].equals(X)) {
-                return true;
+    static void rec_func(int X) {
+        if(M + 1 == X) {
+            for (int i = 1; i <= M; i++) {
+                sb.append(selected[i]).append(" ");
             }
-            if(A[mid].compareTo(X) < 0) {
-                left = mid + 1;
-            } else if (A[mid].compareTo(X) > 0) {
-                right = mid - 1;
-            }
-        }
-        return false;
-    }
-
-    static void pro() {
-        int M = scan.nextInt(), ansCnt = 0;
-        B = new String[M + 1];
-        Arrays.sort(A, 1, N + 1);
-        for (int i = 1; i <= M; i++) {
-            String X = scan.nextLine();
-            if(binary_search(A, 1, N, X)) {
-                B[++ansCnt] = X;
+            sb.append("\n");
+        }else {
+            for (int i = 1; i <= N; i++) {
+                selected[X] = i;
+                rec_func(X + 1);
+                selected[X] = 0;
             }
         }
-        Arrays.sort(B, 1, ansCnt + 1);
-        sb.append(ansCnt).append("\n");
-        for (int i = 1; i <= ansCnt; i++) {
-            sb.append(B[i]).append("\n");
-        }
-        System.out.println(sb.toString());
     }
 
     public static void main(String[] args){
         input();
-        pro();
+        rec_func(1);
+
+        System.out.println(sb.toString());
     }
 
     static class FastReader {
