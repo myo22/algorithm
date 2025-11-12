@@ -21,36 +21,21 @@ public class Algorithm_2512 {
         M = scan.nextInt();
     }
 
-    static boolean determination(int h) {
+    static boolean determination(int limit) {
         int sum = 0;
         for (int i = 1; i <= N; i++) {
-            if(A[i] <= h) {
-                sum += A[i];
-            }else{
-                sum += h;
-            }
+            sum += Math.min(A[i], limit);
         }
         return sum <= M;
     }
 
     static void pro() {
-        long total = 0;
-        int max = 0;
-        for (int i = 0; i <= N; i++) {
-            total += A[i];
-            if(max < A[i]) {
-                max = A[i];
-            }
+        int L = 0, R = 0, answer = 0;
+        for (int i = 1; i <= N; i++) {
+            R = Math.max(R, A[i]);
         }
 
-        if (total <= M) {
-            System.out.println(max);
-            return;
-        }
-
-        int L = 1, R = M, answer = 0;
-
-        while(L <= R) {
+        while (L <= R) {
             int mid = (L + R) / 2;
             if (determination(mid)) {
                 answer = mid;
