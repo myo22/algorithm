@@ -5,58 +5,61 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, M;
-    static int[] A;
+    static int N, M, V;
+    static int[][] arr;
+    static boolean[] visit;
 
     static void input() {
         N = scan.nextInt();
-        A = new int[N + 1];
-        for (int i = 1; i <= N; i++) {
-            A[i] = scan.nextInt();
-        }
         M = scan.nextInt();
+        V = scan.nextInt();
+        arr = new int[N + 1][N + 1];
+        for (int i = 1; i <= M; i++) {
+            int x = scan.nextInt();
+            int y =  scan.nextInt();
+            arr[x][y] = 1;
+            arr[y][x] = 1;
+        }
     }
 
-    static boolean determination(int h) {
-        int sum = 0;
-        for (int i = 1; i <= N; i++) {
-            if(A[i] <= h) {
-                sum += A[i];
-            }else{
-                sum += h;
+    static void dfs(int x) {
+        visit[x] = true;
+        sb.append(x).append(" ");
+        for (int y = 1; y <= N; y++) {
+            if (arr[x][y] == 0 || visit[y]) {
+                continue;
+            }
+            dfs(y);
+        }
+    }
+
+    static void bfs(int start) {
+        Queue<Integer> queue = new LinkedList<>();
+        visit[start] = true;
+        queue.add(start);
+        while(!queue.isEmpty()) {
+            int x = queue.poll();
+            sb.append(x).append(' ');
+            for (int y = 1; y <= N; y++) {
+                if(arr[x][y] == 0 || visit[y]) {
+                    continue;
+                }
+                queue.add(y);
+                visit[y] = true;
             }
         }
-        return sum <= M;
     }
+
 
     static void pro() {
-        long total = 0;
-        int max = 0;
-        for (int i = 0; i <= N; i++) {
-            total += A[i];
-            if(max < A[i]) {
-                max = A[i];
-            }
+        visit = new boolean[N + 1];
+        dfs(V);
+        sb.append("\n");
+        for (int i = 1; i <= N; i++) {
+            visit[i] = false;
         }
-
-        if (total <= M) {
-           System.out.println(max);
-           return;
-        }
-
-        int L = 1, R = M, answer = 0;
-
-        while(L <= R) {
-            int mid = (L + R) / 2;
-            if (determination(mid)) {
-                answer = mid;
-                L = mid + 1;
-            } else{
-                R = mid - 1;
-            }
-        }
-
-        System.out.println(answer);
+        bfs(V);
+        System.out.println(sb.toString());
     }
 
 
