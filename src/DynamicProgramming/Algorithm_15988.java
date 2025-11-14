@@ -1,7 +1,11 @@
-import java.io.*;
-import java.util.*;
+package DynamicProgramming;
 
-class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Algorithm_15988 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
