@@ -6,27 +6,32 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N, M, V;
-    static int[][] arr;
+    static List<Integer>[] adj;
     static boolean[] visit;
 
     static void input() {
         N = scan.nextInt();
         M = scan.nextInt();
         V = scan.nextInt();
-        arr = new int[N + 1][N + 1];
-        for (int i = 1; i <= M; i++) {
-            int x = scan.nextInt();
-            int y =  scan.nextInt();
-            arr[x][y] = 1;
-            arr[y][x] = 1;
+        adj = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) {
+            adj[i] = new ArrayList<>();
+        }
+        for (int i = 0; i < M; i++) {
+            int x = scan.nextInt(), y = scan.nextInt();
+            adj[x].add(y);
+            adj[y].add(x);
+        }
+        for (int i = 1; i <= N; i++) {
+            Collections.sort(adj[i]);
         }
     }
 
     static void dfs(int x) {
         visit[x] = true;
         sb.append(x).append(" ");
-        for (int y = 1; y <= N; y++) {
-            if (arr[x][y] == 0 || visit[y]) {
+        for (int y : adj[x]) {
+            if (visit[y]) {
                 continue;
             }
             dfs(y);
@@ -40,8 +45,8 @@ class Main {
         while(!queue.isEmpty()) {
             int x = queue.poll();
             sb.append(x).append(' ');
-            for (int y = 1; y <= N; y++) {
-                if(arr[x][y] == 0 || visit[y]) {
+            for (int y : adj[x]) {
+                if(visit[y]) {
                     continue;
                 }
                 queue.add(y);
