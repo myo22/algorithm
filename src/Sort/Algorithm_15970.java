@@ -1,3 +1,5 @@
+package Sort;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Algorithm_15970 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
@@ -45,8 +47,8 @@ public class Main {
         }
 
         int sum = 0;
-        for(int color = 1; color <= N; color++) {
-            for(int coord = 0; coord < arr[color].size(); coord++) {
+        for (int color = 1; color <= N; color++) {
+            for (int coord = 0; coord < arr[color].size(); coord++) {
                 sum += Math.min(toLeft(color, coord), toRight(color, coord));
             }
         }
@@ -54,7 +56,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         input();
         pro();
     }
@@ -68,7 +70,7 @@ public class Main {
         }
 
         String next() {
-            while(st == null || !st.hasMoreElements()) {
+            while (st == null || !st.hasMoreElements()) {
                 try {
                     st = new StringTokenizer(br.readLine());
                 } catch (IOException e) {
