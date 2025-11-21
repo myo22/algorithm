@@ -1,7 +1,13 @@
-import java.io.*;
-import java.util.*;
+package GraphSearch;
 
-public class Main {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Algorithm_11403 {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
@@ -25,11 +31,11 @@ public class Main {
         while (!que.isEmpty()) {
             int x = (int) que.poll();
             for (int y = 1; y <= N; y++) {
-               if(visit[y] || adj[x][y] == 0) {
-                   continue;
-               }
-               que.add(y);
-               visit[y] = true;
+                if (visit[y] || adj[x][y] == 0) {
+                    continue;
+                }
+                que.add(y);
+                visit[y] = true;
             }
         }
         for (int i = 1; i <= N; i++) {
@@ -47,7 +53,7 @@ public class Main {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         input();
         pro();
     }
@@ -61,7 +67,7 @@ public class Main {
         }
 
         String next() {
-            while(st == null || !st.hasMoreElements()) {
+            while (st == null || !st.hasMoreElements()) {
                 try {
                     st = new StringTokenizer(br.readLine());
                 } catch (IOException e) {
