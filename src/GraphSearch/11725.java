@@ -8,28 +8,31 @@ public class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N;
-    static int[][] adj;
+    static List<Integer>[] adj;
     static boolean[] visit;
     static int[] parent;
 
     static void input() {
         N = scan.nextInt();
-        adj = new int[N + 1][N + 1];
-        visit = new int[N + 1];
+        adj = new ArrayList[N + 1];
+        visit = new boolean[N + 1];
         parent = new int[N + 1];
+        for (int i = 1; i <= N; i++) {
+            adj[i] = new ArrayList<>();
+        }
         for (int i = 1; i <= N - 1; i++) {
             int x = scan.nextInt();
             int y =  scan.nextInt();
-            arr[x][y] = 1;
-            arr[y][x] = 1;
+            adj[x].add(y);
+            adj[y].add(x);
         }
     }
 
     static void dfs(int x) {
         visit[x] = true;
 
-        for (int y = 1; y <= N; y++) {
-            if (arr[x][y] == 0 || visit[y]) {
+        for (int y : adj[x]) {
+            if (visit[y]) {
                 continue;
             }
             parent[y] = x;
@@ -42,6 +45,7 @@ public class Main {
         for (int i = 2; i <= N; i++) {
             sb.append(parent[i]).append("\n");
         }
+        System.out.println(sb.toString());
     }
 
 
