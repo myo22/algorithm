@@ -1,7 +1,11 @@
+package BruteForce;
 import java.io.IOException;
 
 import java.io.*;
 import java.util.*;
+
+import Main;
+import Main.FastReader;
 
 class Main {
     static FastReader scan = new FastReader();
@@ -17,7 +21,7 @@ class Main {
             }
             sb.append("\n");
         } else {
-            for (int i = 1; i <= N; i++) {
+            for (int i = A[k-1]; i <= N; i++) {
                 A[k] = i;
                 rec_func(k + 1);
             }
@@ -25,12 +29,13 @@ class Main {
     }
 
     static void input() {
-        int N = scan.nextInt();
-        int M = scan.nextInt();
+        N = scan.nextInt();
+        M = scan.nextInt();
         A = new int[M + 1];
     }
 
     static void pro() {
+        A[0] = 1;
         rec_func(1);
         System.out.println(sb.toString());
     }
