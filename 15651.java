@@ -7,10 +7,32 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
+    static int N, M;
+    static int[] A;
+
+    static void rec_func(int k) {
+        if (k == M + 1) {
+            for (int i = 1; i <= M; i++) {
+                sb.append(A[i]).append(" ");
+            }
+            sb.append("\n");
+        } else {
+            for (int i = 1; i <= N; i++) {
+                A[k] = i;
+                rec_func(k + 1);
+            }
+        }
+    }
+
     static void input() {
+        int N = scan.nextInt();
+        int M = scan.nextInt();
+        A = new int[M + 1];
     }
 
     static void pro() {
+        rec_func(1);
+        System.out.println(sb.toString());
     }
 
 
