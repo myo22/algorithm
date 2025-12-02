@@ -1,7 +1,11 @@
+package Sort;
 import java.io.IOException;
 
 import java.io.*;
 import java.util.*;
+
+import Main;
+import Main.FastReader;
 
 class Main {
     static FastReader scan = new FastReader();
@@ -27,16 +31,12 @@ class Main {
             if (card[i] == card[i - 1]) {
                 Cnt++;
             } else {
-                if (max < Cnt) {
-                    max = Cnt;
-                    answer = card[i - 1];
-                }
                 Cnt = 1;
             }
-        }
-
-        if (Cnt > max) {
-            answer = card[N - 1];
+            if (max < Cnt) {
+                max = Cnt;
+                answer = card[i - 1];
+            }
         }
 
         System.out.println(answer);
