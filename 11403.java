@@ -1,45 +1,25 @@
-package GraphSearch;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
 
-public class Algorithm_11403 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int N;
     static boolean[] visit;
-    static int[][] adj;
+    static List<Integer>[] adj;
+
 
     static void input() {
         N = scan.nextInt();
-        adj = new int[N + 1][N + 1];
+        adj = new ArrayList[N + 1];
         for (int i = 1; i <= N; i++) {
+            adj[i] = new ArrayList<Integer>();
             for (int j = 1; j <= N; j++) {
-                adj[i][j] = scan.nextInt();
+                adj[i].add(j);
             }
-        }
-    }
-
-    static void bfs(int X) {
-        Queue que = new LinkedList<Integer>();
-        que.add(X);
-        while (!que.isEmpty()) {
-            int x = (int) que.poll();
-            for (int y = 1; y <= N; y++) {
-                if (visit[y] || adj[x][y] == 0) {
-                    continue;
-                }
-                que.add(y);
-                visit[y] = true;
-            }
-        }
-        for (int i = 1; i <= N; i++) {
-            sb.append(visit[i] ? 1 : 0).append(" ");
         }
     }
 
@@ -52,8 +32,30 @@ public class Algorithm_11403 {
         System.out.println(sb.toString());
     }
 
+    static void bfs(int X) {
+        Queue<Integer> que = new LinkedList<>();
+        que.add(X);
+        while(!que.isEmpty()) {
+            int x = que.poll();
+            for (int y : adj[x]) {
+                if(visit[y]) {
+                    continue;
+                }
+                que.add(y);
+                visit[y] = true;
+            }
+        }
+        for (int i = 1; i <= N; i++) {
+            if(visit[i]) {
+                sb.append(1).append(" ");
+            } else {
+                sb.append(0).append(" ");
+            }
+        }
+    }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
         input();
         pro();
     }
@@ -67,7 +69,7 @@ public class Algorithm_11403 {
         }
 
         String next() {
-            while (st == null || !st.hasMoreElements()) {
+            while(st == null || !st.hasMoreElements()) {
                 try {
                     st = new StringTokenizer(br.readLine());
                 } catch (IOException e) {
