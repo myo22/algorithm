@@ -18,7 +18,9 @@ class Main {
         for (int i = 1; i <= N; i++) {
             adj[i] = new ArrayList<Integer>();
             for (int j = 1; j <= N; j++) {
-                adj[i].add(j);
+                if(scan.nextInt() == 1) {
+                    adj[i].add(j);
+                }
             }
         }
     }
