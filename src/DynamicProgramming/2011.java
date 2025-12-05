@@ -15,31 +15,43 @@ class Main {
     static void input() {
         str = scan.next();
         N = str.length();
-        dy = new int[N + 1];
+        dy = new int[N];
     }
 
     static void pro() {
-        if (dy.charAt(0) != "0") {
+        int mod = 1000000;
+
+        if (str.charAt(0) != '0') {
             dy[0] = 1;
         }
 
         for (int i = 1; i < N; i++) {
-            if (str.charAt(i) != "0") {
+            if (str.charAt(i) != '0') {
                 dy[i] = dy[i - 1];
             }
 
-            if(check(str.charAt(i), str.charAt(i - 1))) {
-                dy[i] = dy[i - 2];
-            } else {
-                dy[i] += 1;
+            if(check(str.charAt(i - 1), str.charAt(i))) {
+                if (i >= 2) {
+                    dy[i] += dy[i - 2];
+                } else {
+                    dy[i] += 1;
+                }
+                dy[i] %= mod;
             }
         }
+
+        System.out.println(dy[N - 1]);
     }
 
     static boolean check(char a, char b) {
-        if (a == "1") {
-
-        } else if ( )
+        if (a == '0') {
+            return false;
+        } else if (a == '1') {
+            return true;
+        } else if (a >= '3') {
+            return false;
+        }
+        return b <= '6';
     }
 
 
