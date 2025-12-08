@@ -1,43 +1,40 @@
-package BruteForce;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Algorithm_14888 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int N, max, min;
-    static int[] nums, operators, order;
+    static int[] A, order;
+    static int[] operator;
 
     static void input() {
         N = scan.nextInt();
-        nums = new int[N + 1];
-        operators = new int[5];
-        order = new int[N + 1];
+        A = new int[N + 1];
+        operator = new int[5];
         for (int i = 1; i <= N; i++) {
-            nums[i] = scan.nextInt();
+            A[i] = scan.nextInt();
         }
-
         for (int i = 1; i <= 4; i++) {
-            operators[i] = scan.nextInt();
+            operator[i] = scan.nextInt();
         }
-
         max = Integer.MIN_VALUE;
         min = Integer.MAX_VALUE;
     }
 
-    static int calculator(int operand1, int operator, int operand2){
-        if (operator == 1)
-            return operand1 + operand2;
-        else if (operator == 2)
-            return operand1 - operand2;
-        else if (operator == 3)
-            return operand1 * operand2;
-        else
-            return operand1 / operand2;
+    static int calculator(int operation1, int operator, int operation2) {
+        if (operator == 1) {
+            return operation1 + operation2;
+        } else if (operator == 2) {
+            return operation1 - operation2;
+        } else if (operator == 3) {
+            return operation1 * operation2;
+        } else {
+            return operation1 / operation2;
+        }
     }
 
     static void rec_func(int k, int value) {
@@ -45,21 +42,21 @@ public class Algorithm_14888 {
             max = Math.max(max, value);
             min = Math.min(min, value);
         } else {
-            for (int cand = 1; cand <= 4; cand++){
-                if (operators[cand] >= 1){
-                    operators[cand]--;
-                    rec_func(k + 1, calculator(value, cand, nums[k + 1]));
-                    operators[cand]++;
+            for (int i = 1; i <= 4; i++) {
+                if (operator[i] > 0) {
+                    operator[i]--;
+                    rec_func(k + 1, calculator(value, i, A[k + 1]));
+                    operator[i]++;
                 }
             }
         }
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         input();
-        rec_func(1, nums[1]);
-        sb.append(max).append('\n').append(min);
+        rec_func(1, A[1]);
+        sb.append(max).append("\n").append(min);
         System.out.println(sb.toString());
     }
 
