@@ -23,6 +23,7 @@ class Main {
             int x = scan.nextInt();
             int y = scan.nextInt();
             arr[x].add(y);
+            arr[y].add(x);
         }
     }
 
