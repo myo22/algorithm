@@ -1,48 +1,54 @@
-package GraphSearch;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Algorithm_2606 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, M, count;
-    static int[][] A;
+    static int N, K;
+    static List<Integer>[] arr;
     static boolean[] visit;
-
-    static void dfs(int x) {
-        visit[x] = true;
-        for(int y = 1; y <= N; y++) {
-            if (A[x][y] == 0) continue;
-
-            if (visit[y]) {
-                continue;
-            }
-            count++;
-            dfs(y);
-        }
-    }
-
 
     static void input() {
         N = scan.nextInt();
-        M = scan.nextInt();
-        A = new int[N + 1][N + 1];
+        K = scan.nextInt();
+        arr = new ArrayList[N + 1];
         visit = new boolean[N + 1];
-        for (int i = 0; i < M; i++) {
-            int x = scan.nextInt(), y = scan.nextInt();
-            A[x][y] = A[y][x] = 1;
+        for (int i = 1; i <= N; i++) {
+            arr[i] = new ArrayList<>();
+        }
+        for (int i = 1; i <= K; i++) {
+            int x = scan.nextInt();
+            int y = scan.nextInt();
+            arr[x].add(y);
         }
     }
 
-    public static void main(String[] args){
-        input();
-        dfs(1);
+    static void bfs (int X) {
+        Queue<Integer> que = new LinkedList<>();
+        que.add(X);
+        visit[X] = true;
+        int cnt = 0;
+        while (!que.isEmpty()) {
+            int x = que.poll();
+            for (int y : arr[x]) {
+                if (visit[y]) {
+                    continue;
+                }
+                que.add(y);
+                visit[y] = true;
+                cnt++;
+            }
+        }
+        System.out.println(cnt);
+    }
 
-        System.out.println(count);
+
+    public static void main(String[] args) throws IOException {
+        input();
+        bfs(1);
     }
 
     static class FastReader {
