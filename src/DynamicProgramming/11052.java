@@ -20,10 +20,10 @@ class Main {
     }
 
     static void pro() {
-        dy[0] = 0;
+        P[0] = 0;
         for (int i = 1; i <= N; i++) {
             for (int cnt = 1; cnt <= i; cnt++) {
-                dy[i] = Math.max(P[i], P[i - cnt] + dy[cnt]);
+                dy[i] = Math.max(dy[i], P[cnt] + dy[i - cnt]);
             }
         }
         System.out.println(dy[N]);
