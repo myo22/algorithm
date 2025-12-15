@@ -1,43 +1,41 @@
-package BruteForce;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Algorithm_1182 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int N, S, Cnt;
-    static int[] arr;
+    static int[] A, visit;
 
     static void input() {
         N = scan.nextInt();
         S = scan.nextInt();
-        arr = new int[N + 1];
+        A = new int[N + 1];
+        visit = new int[N + 1];
         for (int i = 1; i <= N; i++) {
-            arr[i] = scan.nextInt();
+            A[i] = scan.nextInt();
         }
     }
 
-    static void rec_func(int k, int sum) {
+    static void rec_func(int k, int value) {
         if (k == N + 1) {
-            if(sum == S) {
+            if (S == value) {
                 Cnt++;
             }
         } else {
-            rec_func(k + 1, sum + arr[k]);
-
-            rec_func(k + 1, sum);
+            rec_func(k + 1, value + A[k]);
+            rec_func(k + 1, value);
         }
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         input();
         rec_func(1, 0);
-        if (S == 0){
+        if (S == 0) {
             Cnt--;
         }
         System.out.println(Cnt);
