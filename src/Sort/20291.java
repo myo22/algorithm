@@ -26,17 +26,16 @@ class Main {
             extension[i] = ext;
         }
         Arrays.sort(extension, 1, N + 1);
-        int cnt = 0;
-        for (int i = 2; i <= N; i++) {
-            if (extension[i] == extension[i - 1]) {
-                cnt++;
-            } else {
-                System.out.println(cnt);
+        int cnt = 1;
+        for (int i = 1; i <= N - 1; i++) {
+            if (!extension[i].equals(extension[i + 1])) {
+                System.out.println(extension[i] + " " + cnt);
                 cnt = 0;
             }
+            cnt++;
         }
         if (cnt != 0) {
-            System.out.println(cnt);
+            System.out.println(extension[N] + " " +cnt);
         }
     }
 
