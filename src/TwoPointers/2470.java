@@ -21,13 +21,17 @@ class Main {
     static void pro() {
         Arrays.sort(A, 1, N + 1);
         int start = 1, end = N, answer1 = 0, answer2 = 0, min = Integer.MAX_VALUE;
-        while (start <= end) {
-            int sum = Math.abs(A[start] + A[end]);
-            if(sum <= min) {
-                min = sum;
-                start++;
+        while (start < end) {
+            int sum = A[start] + A[end];
+            int absSum = Math.abs(sum);
+            if(absSum < min) {
                 answer1 = start;
                 answer2 = end;
+                min = absSum;
+            }
+
+            if (sum < 0) {
+                start++;
             } else {
                 end--;
             }
