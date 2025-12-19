@@ -1,50 +1,57 @@
-package DynamicProgramming;
 import java.io.IOException;
 
 import java.io.*;
 import java.util.*;
 
-import Main;
-import Main.FastReader;
-
 class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int T;
-    static long[] dp;
-    static int[] A;
+    static int T, MOD = 1000000009;
+    static int[] dy;
 
     static void input() {
         T = scan.nextInt();
-        dp = new long[100001];
-        A = new int[T + 1];
-        for (int i = 1; i <= T; i++) {
-            A[i] = scan.nextInt();
-        }
+        dy = new int[100001];
     }
 
-    static void preprocess() {
-        dp[0] = 1;
-        dp[1] = 1;
-        dp[2] = 2;
-        dp[3] = 2;
-        for (int i = 4; i <= 100000; i++) {
-            dp[i] = ((i - 2 >= 0 ? dp[i-2] : 0) + (i - 4 >= 0 ? dp[i-4] : 0) + (i - 6 >= 0 ? dp[i-6] : 0)) % 1000000009;
+    static void preproceed() {
+        dy[0] = 1;
+        for (int i = 1; i <= 100000; i++) {
+            dy[i] = dy[i - 1];
+            if (i - 2 >= 0) {
+                dy[i] += dy[i - 2];
+                dy[i] %= MOD;
+            }
+            if (i - 3 >= 0) {
+                dy[i] += dy[i - 3];
+                dy[i] %= MOD;
+            }
         }
     }
 
     static void pro() {
+        preproceed();
         for (int i = 1; i <= T; i++) {
-            sb.append(dp[A[i]]).append("\n");
+            int x = scan.nextInt();
+            int res = 0;
+            for (int mid = 1; mid <= 3; mid++) {
+                if (x - mid >= 0 && (x - mid) % 2 == 0) {
+                    res += dy[(x - mid) / 2]; 
+                    res %= MOD;
+                }
+            }
+            if (x % 2 == 0) {
+                res += dy[x / 2];
+                res %= MOD;
+            }
+            System.out.println(res);
         }
-        System.out.println(sb.toString());
     }
 
 
     public static void main(String[] args) throws IOException {
         input();
-        preprocess();
         pro();
     }
 
