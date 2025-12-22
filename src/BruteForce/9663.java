@@ -8,48 +8,39 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N, cnt;
-    static int[][] board;
+    static int[] board;
 
     static void input() {
         N = scan.nextInt();
-        board = new int[N + 1][N + 1];
-        for (int i = 1; i <= N; i++) {
-            for (int j = 1; j <= N; j++) {
-                board[i][j] = 0;
-            }
-        }
+        board = new int[N + 1];
     }
 
-    static void rec_func(int k) {
-        if (k == N) {
+    static void rec_func(int col) {
+        if (col == N + 1) {
             cnt++;
             return;
         } else {
-            for (int i = 1; i <= N; i++) {
-                if (determination(i, k)) {
+            for (int row = 1; row <= N; row++) {
+                if (!canPlace(row, col)) {
                     continue;
                 }
-                board[i][k] = 1;
-                rec_func(k + 1);
-                board[i][k] = 0;
+                board[col] = row;
+                rec_func(col + 1);
             }
         }
     }
 
-    static boolean determination(int row, int col) {
-        for (int i = 1; i <= col; i++) {
-            for (int j = 1; j <= N; j++) {
-                if (board[j][i] == 1) {
-                    if (i == col) {
-                        return true;
-                    }
-                    if (Math.abs(col - i) == Math.abs(row - j)) {
-                        return true;
-                    }
-                }
+    static boolean canPlace(int row, int col) {
+        for (int prevCol = 1; prevCol < col; prevCol++) {
+            int prevRow = board[prevCol];
+            if (prevRow == row) {
+                return false;
+            }
+            if (Math.abs(col - prevCol) == Math.abs(row - prevRow)) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     static void pro() {
