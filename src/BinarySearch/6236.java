@@ -55,7 +55,7 @@ class Main {
 
     public static void main(String[] args) throws IOException {
         input();
-        binary_search(1, 10000);
+        binary_search(1, 1000000000);
     }
 
     static class FastReader {
