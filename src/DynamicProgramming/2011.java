@@ -7,51 +7,48 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static String str;
+    static String pwd;
+    static int[] Dy;
     static int N;
-    static int[] dy;
-
 
     static void input() {
-        str = scan.next();
-        N = str.length();
-        dy = new int[N];
+        pwd = scan.nextLine();
+        N = pwd.length();
+        Dy = new int[N];
+    }
+
+    static boolean check (char A, char B) {
+        if (A == '0') {
+            return false;
+        }
+        if (A == '1') {
+            return true;
+        }
+        if (A >= '3') {
+            return false;
+        }
+        return B <= '6';
     }
 
     static void pro() {
-        int mod = 1000000;
-
-        if (str.charAt(0) != '0') {
-            dy[0] = 1;
+        if (pwd.charAt(0) != '0') {
+            Dy[0] = 1;
         }
-
         for (int i = 1; i < N; i++) {
-            if (str.charAt(i) != '0') {
-                dy[i] = dy[i - 1];
+            if (pwd.charAt(i) != '0') {
+                Dy[i] = Dy[i - 1];
             }
 
-            if(check(str.charAt(i - 1), str.charAt(i))) {
+            if (check(pwd.charAt(i - 1), pwd.charAt(i))) {
                 if (i >= 2) {
-                    dy[i] += dy[i - 2];
+                    Dy[i] += Dy[i - 2];
                 } else {
-                    dy[i] += 1;
+                    Dy[i] += 1;
                 }
-                dy[i] %= mod;
+                Dy[i] %= 1000000;
             }
         }
-
-        System.out.println(dy[N - 1]);
-    }
-
-    static boolean check(char a, char b) {
-        if (a == '0') {
-            return false;
-        } else if (a == '1') {
-            return true;
-        } else if (a >= '3') {
-            return false;
-        }
-        return b <= '6';
+        System.out.println(Dy[N - 1]);
     }
 
 
