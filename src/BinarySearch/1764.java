@@ -1,60 +1,56 @@
-package BinarySearch;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
-public class Algorithm_1764 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
-
-    static int N;
-    static String[] A, B;
+    
+    static int N, M;
+    static String[] A;
+    static List<String> answer;
 
     static void input() {
         N = scan.nextInt();
+        M = scan.nextInt();
         A = new String[N + 1];
         for (int i = 1; i <= N; i++) {
             A[i] = scan.nextLine();
         }
-    }
-
-    static boolean binary_search(String[] A, int left, int right, String X) {
-        while(left <= right) {
-            int mid = (left + right) / 2;
-            if (A[mid].equals(X)) {
-                return true;
-            }
-            if(A[mid].compareTo(X) < 0) {
-                left = mid + 1;
-            } else if (A[mid].compareTo(X) > 0) {
-                right = mid - 1;
-            }
-        }
-        return false;
+        Arrays.sort(A, 1, N + 1);
     }
 
     static void pro() {
-        int M = scan.nextInt(), ansCnt = 0;
-        B = new String[M + 1];
-        Arrays.sort(A, 1, N + 1);
+        answer = new ArrayList<>();
         for (int i = 1; i <= M; i++) {
-            String X = scan.nextLine();
-            if(binary_search(A, 1, N, X)) {
-                B[++ansCnt] = X;
-            }
+            binary_search(scan.nextLine());
         }
-        Arrays.sort(B, 1, ansCnt + 1);
-        sb.append(ansCnt).append("\n");
-        for (int i = 1; i <= ansCnt; i++) {
-            sb.append(B[i]).append("\n");
+        Collections.sort(answer);
+        System.out.println(answer.size());
+        for (String a : answer) {
+            System.out.println(a);
         }
-        System.out.println(sb.toString());
     }
 
-    public static void main(String[] args){
+    static void binary_search(String word) {
+        int L = 1, R = N;
+        while(L <= R) {
+            int mid = (L + R) / 2;
+            int cmp = A[mid].compareTo(word);
+            if (cmp == 0) {
+                answer.add(A[mid]);
+                return;
+            } else if (cmp < 0) {
+                L = mid + 1;
+            } else {
+                R = mid - 1;
+            }
+        }
+    }
+
+
+    public static void main(String[] args) throws IOException {
         input();
         pro();
     }
