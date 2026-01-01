@@ -8,25 +8,26 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N;
-    static int[] P, dy;
+    static int[] P, dp;
 
     static void input() {
         N = scan.nextInt();
         P = new int[N + 1];
-        dy = new int[N + 1];
+        dp = new int[N + 1];
         for (int i = 1; i <= N; i++) {
             P[i] = scan.nextInt();
         }
     }
 
     static void pro() {
-        P[0] = 0;
+        dp[0] = 0;
         for (int i = 1; i <= N; i++) {
             for (int cnt = 1; cnt <= i; cnt++) {
-                dy[i] = Math.max(dy[i], P[cnt] + dy[i - cnt]);
+                dp[i] = Math.max(dp[i], dp[i - cnt] + P[cnt]);
             }
         }
-        System.out.println(dy[N]);
+
+        System.out.println(dp[N]);
     }
 
 
