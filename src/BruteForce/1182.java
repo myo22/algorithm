@@ -7,38 +7,41 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, S, Cnt;
-    static int[] A, visit;
+    static int N, S, cnt;
+    static int[] P;
 
     static void input() {
         N = scan.nextInt();
         S = scan.nextInt();
-        A = new int[N + 1];
-        visit = new int[N + 1];
+        P = new int[N + 1];
         for (int i = 1; i <= N; i++) {
-            A[i] = scan.nextInt();
+            P[i] = scan.nextInt();
         }
     }
 
     static void rec_func(int k, int value) {
-        if (k == N + 1) {
-            if (S == value) {
-                Cnt++;
+        if (N + 1 == k) {
+            if (value == S) { 
+                cnt++;
             }
         } else {
-            rec_func(k + 1, value + A[k]);
+            rec_func(k + 1, P[k] + value);
             rec_func(k + 1, value);
         }
+    }
+
+    static void pro() {
+        rec_func(1, P[0]);
+        if (S == 0) {
+            cnt--;
+        }
+        System.out.println(cnt);
     }
 
 
     public static void main(String[] args) throws IOException {
         input();
-        rec_func(1, 0);
-        if (S == 0) {
-            Cnt--;
-        }
-        System.out.println(Cnt);
+        pro();
     }
 
     static class FastReader {
