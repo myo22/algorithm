@@ -7,48 +7,50 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static String pwd;
-    static int[] Dy;
-    static int N;
+    static String N;
+    static int len;
+    static int[] dp;
+    static int mod = 1000000;
 
     static void input() {
-        pwd = scan.nextLine();
-        N = pwd.length();
-        Dy = new int[N];
-    }
-
-    static boolean check (char A, char B) {
-        if (A == '0') {
-            return false;
-        }
-        if (A == '1') {
-            return true;
-        }
-        if (A >= '3') {
-            return false;
-        }
-        return B <= '6';
+        N = scan.next();
+        len = N.length();
+        dp = new int[len];
     }
 
     static void pro() {
-        if (pwd.charAt(0) != '0') {
-            Dy[0] = 1;
+        if (N.charAt(0) != '0') {
+            dp[0] = 1;
         }
-        for (int i = 1; i < N; i++) {
-            if (pwd.charAt(i) != '0') {
-                Dy[i] = Dy[i - 1];
+
+        for (int i = 1; i < len; i++) {
+            if(N.charAt(i) != '0') {
+                dp[i] = dp[i - 1];
             }
 
-            if (check(pwd.charAt(i - 1), pwd.charAt(i))) {
-                if (i >= 2) {
-                    Dy[i] += Dy[i - 2];
+            if (calculate(N.charAt(i - 1), N.charAt(i))) {
+                if (i < 2) {
+                    dp[i] += 1;
                 } else {
-                    Dy[i] += 1;
+                    dp[i] = (dp[i] + dp[i - 2]) % mod;
                 }
-                Dy[i] %= 1000000;
             }
         }
-        System.out.println(Dy[N - 1]);
+
+        System.out.println(dp[len - 1]);
+    }
+
+    static boolean calculate (char a, char b) {
+        if (a == '0') {
+            return false;
+        }
+        if (a == '1') {
+            return true;
+        }
+        if (a >= '3') {
+            return false;
+        }
+        return b <= '6';
     }
 
 
