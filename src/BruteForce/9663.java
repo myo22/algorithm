@@ -8,51 +8,46 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N, cnt;
-    static int[] board;
+    static int[] col;
 
     static void input() {
         N = scan.nextInt();
-        board = new int[N + 1];
+        col = new int[N + 1];
     }
 
-    static void rec_func(int col) {
-        if (col == N + 1) {
+    static void rec_func(int row) {
+        if (N + 1 == row) {
             cnt++;
-            return;
         } else {
-            for (int row = 1; row <= N; row++) {
-                if (!canPlace(row, col)) {
-                    continue;
+            for (int c = 1; c <= N; c++) {
+                boolean possible = true;
+                for (int i = 1; i <= row - 1; i++) {
+                    if(!calculate(row, c, i, col[i])) {
+                        possible = false;
+                        break;
+                    }
                 }
-                board[col] = row;
-                rec_func(col + 1);
+                if (possible) {
+                    col[row] = c;
+                    rec_func(row + 1);
+                    col[row] = 0;
+                }
             }
         }
     }
-
-    static boolean canPlace(int row, int col) {
-        for (int prevCol = 1; prevCol < col; prevCol++) {
-            int prevRow = board[prevCol];
-            if (prevRow == row) {
-                return false;
-            }
-            if (Math.abs(col - prevCol) == Math.abs(row - prevRow)) {
-                return false;
-            }
-        }
+    
+    static boolean calculate(int r1, int c1, int r2, int c2) {
+        if (c1 == c2) return false;
+        if (r1 + c1 == r2 + c2) return false;
+        if (r1 - c1 == r2 - c2) return false;
         return true;
-    }
-
-    static void pro() {
-        cnt = 0;
-        rec_func(1);
-        System.out.println(cnt);
     }
 
 
     public static void main(String[] args) throws IOException {
         input();
-        pro();
+        rec_func(1);
+        System.out.println(cnt);
     }
 
     static class FastReader {
