@@ -12,45 +12,42 @@ class Main {
 
     static void input() {
         N = scan.nextInt();
-        A = new int[N+1];
+        A = new int[N + 1];
         for (int i = 1; i <= N; i++) {
-            A[i] = scan.nextInt();
+            A[i] = scan.nextInt();;
         }
         M = scan.nextInt();
+    }
+
+    static void binary_search(int L, int R, int k) {
+        int answer = 0;
+        while(L <= R) {
+            int mid = (L + R) / 2;
+            if (A[mid] == k) {
+                answer = 1;
+                break;
+            }
+            if (A[mid] < k) {
+                L = mid + 1;
+            } else {
+                R = mid - 1;
+            }
+        }
+        sb.append(answer).append("\n");
     }
 
     static void pro() {
         Arrays.sort(A, 1, N + 1);
         for (int i = 1; i <= M; i++) {
-            int a = scan.nextInt();
-            if (binary_search(a)) {
-                sb.append(1).append("\n");
-            } else {
-                sb.append(0).append("\n");
-            }
+            binary_search(1, N, scan.nextInt());
         }
-    }
-
-    static boolean binary_search(int x) {
-        int left = 1, right = N;
-        while (left <= right) {
-            int mid = (left + right) / 2;
-            if (A[mid] == x)
-                return true;
-
-            if (A[mid] < x)
-                left = mid + 1;
-            else
-                right = mid - 1;
-        }
-        return false;
+        System.out.println(sb.toString());
     }
 
 
     public static void main(String[] args) throws IOException {
         input();
         pro();
-        System.out.println(sb.toString());
     }
 
     static class FastReader {
