@@ -24,25 +24,25 @@ class Main {
         }
     }
 
-    static void dfs(int x) {
+    static void pro() {
+        int cnt = 0;
+        for (int i = 1; i <= N; i++) {
+            if(!visit[i]) {
+                dfs(i);
+                cnt++;
+            }
+        }
+        System.out.println(cnt);
+    }
+
+    static void dfs (int x) {
         visit[x] = true;
         for (int y = 1; y <= N; y++) {
-            if (adj[x][y] == 0 || visit[y]) {
+            if(adj[x][y] == 0 || visit[y]) {
                 continue;
             }
             dfs(y);
         }
-    }
-
-    static void pro() {
-        int count = 0;
-        for (int i = 1; i <= N; i++) {
-            if (!visit[i]) {
-                dfs(i);
-                count++;
-            }
-        }
-        System.out.println(count);
     }
 
 
