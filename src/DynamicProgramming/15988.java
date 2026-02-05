@@ -1,45 +1,40 @@
-package DynamicProgramming;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Algorithm_1003 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int T;
-    static int[][] dp;
+    static long[] dp;
+    static int mod = 1000000009;
 
     static void input() {
         T = scan.nextInt();
+        dp = new long[1000001];
     }
 
     static void pro() {
-        dp = new int[41][2];
-        dp[0][0] = 1;
-        dp[0][1] = 0;
-        dp[1][0] = 0;
-        dp[1][1] = 1;
-        for (int i = 2; i <= 40; i++) {
-            dp[i][0] = dp[i-1][0] + dp[i-2][0];
-            dp[i][1] = dp[i-1][1] + dp[i-2][1];
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 4;
+        for (int i = 4; i <= 1000000; i++) {
+            dp[i] = (dp[i - 1] + dp[i - 2] + dp[i - 3]) % mod;
         }
 
-        for (int i = 0; i < T; i++) {
-            int N = scan.nextInt();
-            sb.append(dp[N][0]).append(" ");
-            sb.append(dp[N][1]).append("\n");
+        for (int i = 1; i <= T; i++) {
+            int n = scan.nextInt();
+            sb.append(dp[n]).append("\n");
         }
+        System.out.println(sb.toString());
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         input();
         pro();
-
-        System.out.println(sb.toString());
     }
 
     static class FastReader {
