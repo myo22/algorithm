@@ -7,47 +7,45 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, cnt;
+    static int N, count;
     static int[] col;
+    static boolean possible;
 
     static void input() {
         N = scan.nextInt();
         col = new int[N + 1];
+        count = 0;
     }
 
-    static void rec_func(int row) {
-        if (N + 1 == row) {
-            cnt++;
+    static void pro() {
+        rec_func(1);
+        System.out.println(count);
+    }
+
+    static void rec_func(int x) {
+        if (x == N + 1) {
+            count++;
         } else {
-            for (int c = 1; c <= N; c++) {
-                boolean possible = true;
-                for (int i = 1; i <= row - 1; i++) {
-                    if(!calculate(row, c, i, col[i])) {
+            for (int y = 1; y <=  N; y++) {
+                possible = true;
+                for (int x1 = 1; x1 < x; x1++) {
+                    if(Math.abs(x1 - x) == Math.abs(col[x1] - y) || col[x1] == y) {
                         possible = false;
-                        break;
                     }
                 }
                 if (possible) {
-                    col[row] = c;
-                    rec_func(row + 1);
-                    col[row] = 0;
+                    col[x] = y;
+                    rec_func(x + 1);
+                    col[x] = 0;
                 }
             }
         }
-    }
-    
-    static boolean calculate(int r1, int c1, int r2, int c2) {
-        if (c1 == c2) return false;
-        if (r1 + c1 == r2 + c2) return false;
-        if (r1 - c1 == r2 - c2) return false;
-        return true;
     }
 
 
     public static void main(String[] args) throws IOException {
         input();
-        rec_func(1);
-        System.out.println(cnt);
+        pro();
     }
 
     static class FastReader {
