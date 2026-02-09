@@ -1,44 +1,43 @@
-package Sort;
 import java.io.IOException;
 
 import java.io.*;
 import java.util.*;
-
-import Main;
-import Main.FastReader;
 
 class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int N;
+    static int count = 1;
+    static int max = Integer.MIN_VALUE;
     static long[] card;
 
     static void input() {
         N = scan.nextInt();
-        card = new long[N];
-        for (int i = 0; i < N; i++) {
+        card = new long[N + 1];
+        for (int i = 1; i <= N; i++) {
             card[i] = scan.nextLong();
         }
     }
 
     static void pro() {
-        Arrays.sort(card);
-        int Cnt = 1;
-        long answer = card[0];
-        int max = Integer.MIN_VALUE;
-        for (int i = 1; i < N; i++) {
-            if (card[i] == card[i - 1]) {
-                Cnt++;
+        Arrays.sort(card, 1, N + 1);
+        long answer = card[1];
+        for (int i = 1; i <= N - 1; i++) {
+            if (card[i] == card[i + 1]) {
+                count++;
             } else {
-                Cnt = 1;
-            }
-            if (max < Cnt) {
-                max = Cnt;
-                answer = card[i - 1];
+                if (max < count) {
+                    answer = card[i];
+                    max = count;
+                }
+                count = 1;
             }
         }
 
+        if (max < count) {
+            answer = card[N];
+        }
         System.out.println(answer);
     }
 
