@@ -7,56 +7,57 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, cnt;
+    static int N;
+    static int count = 0;
+    static String[] adj;
     static boolean[][] visit;
-    static String[] a;
-    static int[][] dir = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-    static List<Integer> answer;
-
+    static List<Integer> component;
+    static int[][] direction = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
 
     static void input() {
         N = scan.nextInt();
-        a = new String[N];
-        for (int i = 0; i < N; i++) {
-            a[i] = scan.nextLine();
-        }
+        adj = new String[N];
         visit = new boolean[N][N];
-    }
+        component = new ArrayList<>();
 
-    static void dfs (int x, int y) {
-        cnt++;
-        visit[x][y] = true;
+        for (int i = 0; i < N; i++) {
+            adj[i] = scan.next();
+        }
+    }
+    
+    static void dfs(int row, int col) {
+        visit[row][col] = true;
+        count++;
         for (int i = 0; i < 4; i++) {
-            int dx = x + dir[i][0];
-            int dy = y + dir[i][1];
-            if (dx < 0 || dy < 0 || dx >= N || dy >= N) {
+            int drow = row + direction[i][0];
+            int dcol = col + direction[i][1];
+
+            if(drow < 0 || drow >= N || dcol < 0 || dcol >= N) {
                 continue;
             }
-            if (a[dx].charAt(dy) == '0') {
+            if (visit[drow][dcol]) {
                 continue;
             }
-            if (visit[dx][dy]) {
+            if (adj[drow].charAt(dcol) == '0') {
                 continue;
             }
-            dfs(dx, dy);
+            dfs(drow, dcol);
         }
     }
 
     static void pro() {
-        answer = new ArrayList<>();
-        for (int x = 0; x < N; x++) {
-            for (int y = 0; y < N; y++) {
-                if (!visit[x][y] && a[x].charAt(y) == '1') {
-                    cnt = 0;
-                    dfs(x, y);
-                    answer.add(cnt);
+        for (int row = 0; row < N; row++) {
+            for (int col = 0; col < N; col++) {
+                if (adj[row].charAt(col) == '1' && !visit[row][col]) {
+                    count = 0;
+                    dfs(row, col);
+                    component.add(count);
                 }
             }
         }
-
-        Collections.sort(answer);
-        sb.append(answer.size()).append("\n");
-        for (int cnt : answer) {
+        Collections.sort(component);
+        sb.append(component.size()).append("\n");
+        for (int cnt : component) {
             sb.append(cnt).append("\n");
         }
         System.out.println(sb.toString());
