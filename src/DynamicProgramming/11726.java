@@ -12,7 +12,7 @@ class Main {
 
     static void input() {
         n = scan.nextInt();
-        dy = new int[n+ 1];
+        dy = new int[1001];
     }
 
     static void pro() {
