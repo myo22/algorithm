@@ -3,26 +3,26 @@ import java.io.IOException;
 import java.io.*;
 import java.util.*;
 
-public class Main {
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int N;
     static List<Integer>[] adj;
-    static boolean[] visit;
     static int[] parent;
+    static boolean[] visit;
 
     static void input() {
         N = scan.nextInt();
         adj = new ArrayList[N + 1];
-        visit = new boolean[N + 1];
         parent = new int[N + 1];
+        visit = new boolean[N + 1];
         for (int i = 1; i <= N; i++) {
-            adj[i] = new ArrayList<>();
+            adj[i] = new ArrayList<>(); 
         }
-        for (int i = 1; i <= N - 1; i++) {
+        for (int i = 1; i < N; i++) {
             int x = scan.nextInt();
-            int y =  scan.nextInt();
+            int y = scan.nextInt();
             adj[x].add(y);
             adj[y].add(x);
         }
@@ -30,9 +30,8 @@ public class Main {
 
     static void dfs(int x) {
         visit[x] = true;
-
         for (int y : adj[x]) {
-            if (visit[y]) {
+            if(visit[y]) {
                 continue;
             }
             parent[y] = x;
