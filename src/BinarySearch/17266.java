@@ -1,57 +1,53 @@
-package BinarySearch;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Algorithm_17266 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int N, M;
-    static int[] A;
+    static int[] x;
 
     static void input() {
         N = scan.nextInt();
         M = scan.nextInt();
-        A = new int[M + 1];
+        x = new int[M + 1];
         for (int i = 1; i <= M; i++) {
-            A[i] = scan.nextInt();
+            x[i] = scan.nextInt();
         }
     }
 
-    static boolean determination(int height) {
-        int last = 0;
-        for (int i = 1; i <= M; i++) {
-            if (A[i] - height <= last) {
-                last = A[i] + height;
-            } else {
-                return false;
-            }
-        }
-        return last >= N;
-    }
-
-    static void pro() {
-        int L = 0, R = N, result = N;
-
+    static void binary_search() {
+        int L = 1, R = N, answer = 0;
         while (L <= R) {
             int mid = (L + R) / 2;
-            if(determination(mid)) {
-                result = mid;
+            if (determination(mid)) {
+                answer = mid;
                 R = mid - 1;
             } else {
                 L = mid + 1;
             }
         }
-        System.out.println(result);
+        System.out.println(answer);
+    }
+
+    static boolean determination(int h) {
+        int last_reach = 0;
+        for (int i = 1; i <= M; i++) {
+            if(x[i] - h > last_reach) {
+                return false;
+            }
+            last_reach = x[i] + h;
+        }
+        return last_reach >= N;
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         input();
-        pro();
+        binary_search();
     }
 
     static class FastReader {
