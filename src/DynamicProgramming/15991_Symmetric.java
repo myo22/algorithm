@@ -8,38 +8,35 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int T;
-    static int max = Integer.MIN_VALUE;
-    static int[] A, dp;
+    static long[] dy;
     static int mod = 1000000009;
 
     static void input() {
         T = scan.nextInt();
-        A = new int[T + 1];
-        for (int i = 1; i <= T; i++) {
-            A[i] = scan.nextInt();
-            max = Math.max(A[i], max);
-        }
+        dy = new long[100001];
     }
 
     static void pro() {
-        dp = new int[max + 1];
-        dp[0] = 1;
-        dp[1] = 1;
-        dp[2] = 2;
-        dp[3] = 2;
-        for (int i = 4; i <= max; i++) {
+        dy[0] = 1;
+        dy[1] = 1;
+        dy[2] = 2;
+        dy[3] = 2;
+        for (int i = 4; i <= 100000; i++) {
             if (i - 2 >= 0) {
-                dp[i] = (dp[i] + dp[i - 2]) % mod;
+                dy[i] += dy[i - 2];
             }
             if (i - 4 >= 0) {
-                dp[i] = (dp[i] + dp[i - 4]) % mod;
+                dy[i] += dy[i - 4];
             }
             if (i - 6 >= 0) {
-                dp[i] = (dp[i] + dp[i - 6]) % mod;
+                dy[i] += dy[i - 6];
             }
+            dy[i] %= mod;
         }
+
         for (int i = 1; i <= T; i++) {
-            sb.append(dp[A[i]]).append("\n");
+            int n = scan.nextInt();
+            sb.append(dy[n]).append("\n");
         }
         System.out.println(sb.toString());
     }
