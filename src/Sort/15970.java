@@ -8,54 +8,64 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N;
-    static Coordinate[] coordinate;
+    static Arrow[] arr;
 
-    static class Coordinate implements Comparable<Coordinate> {
-        int index;
+    static void input() {
+        N = scan.nextInt();
+        arr = new Arrow[N + 1];
+        for (int i = 1; i <= N; i++) {
+            int x = scan.nextInt();
+            int y = scan.nextInt();
+            arr[i] = new Arrow(x, y);
+        }
+    }
+
+    static class Arrow implements Comparable<Arrow> {
+        int coordinate;
         int color;
 
-        Coordinate (int index, int color) {
-            this.index = index;
+        public Arrow (int coordinate, int color) {
+            this.coordinate = coordinate;
             this.color = color;
         }
 
         @Override
-        public int compareTo(Coordinate o) {
+        public int compareTo(Arrow o) {
             if (this.color != o.color) {
-                return Integer.compare(this.color, o.color);
+                return this.color - o.color;
             }
-            return Integer.compare(this.index, o.index);
+            return this.coordinate - o.coordinate;
         }
     }
 
-    static void input() {
-        N = scan.nextInt();
-        coordinate = new Coordinate[N];
-        for (int i = 0; i < N; i++) {
-            int x = scan.nextInt();
-            int y = scan.nextInt();
-            coordinate[i] = new Coordinate(x, y);
+    static int left (int i) {
+        if (i <= 1) {
+            return Integer.MAX_VALUE;
         }
+        if (arr[i].color != arr[i - 1].color) {
+            return Integer.MAX_VALUE;
+        }
+        return arr[i].coordinate - arr[i - 1].coordinate;
+    }
+
+    static int right (int i) {
+        if (i >= N) {
+            return Integer.MAX_VALUE;
+        }
+        if (arr[i].color != arr[i + 1].color) {
+            return Integer.MAX_VALUE;
+        }
+        return arr[i + 1].coordinate - arr[i].coordinate;
     }
 
     static void pro() {
-        Arrays.sort(coordinate);
+        Arrays.sort(arr, 1, N + 1);
         int sum = 0;
-        for (int i = 0; i < N; i++) {
-            int leftDist = Integer.MAX_VALUE;
-            int rightDist = Integer.MAX_VALUE;
-
-            if (i > 0 && coordinate[i].color == coordinate[i - 1].color) {
-                leftDist = coordinate[i].index - coordinate[i - 1].index;
-            }
-
-            if (i < N - 1 && coordinate[i].color == coordinate[i + 1].color) {
-                rightDist = coordinate[i + 1].index - coordinate[i].index;
-            }
-
-            sum += Math.min(leftDist, rightDist);
+        for (int i = 1; i <= N; i++) {
+            int a = left(i);
+            int b = right(i);
+            sum += Math.min(a, b);
         }
-
         System.out.println(sum);
     }
 
