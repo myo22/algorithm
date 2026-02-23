@@ -9,30 +9,37 @@ class Main {
 
     static int N, M;
     static int[] arr, result;
+    static boolean[] visited;
 
     static void input() {
         N = scan.nextInt();
         M = scan.nextInt();
         arr = new int[N + 1];
         result = new int[N + 1];
+        visited = new boolean[N + 1];
         for (int i = 1; i <= N; i++) {
             arr[i] = scan.nextInt();
         }
     }
 
-    static void rec_func(int k, int idx) {
+    static void rec_func(int k) {
         if (k == M + 1) {
             for (int i = 1; i <= M; i++) {
                 sb.append(result[i]).append(" ");
             }
             sb.append("\n");
         } else {
+            int last_used = -1;
             for (int i = 1; i <= N; i++) {
-                if (idx == i || arr[i] == arr[i - 1]) {
-                    continue;
-                }
+                if (visited[i]) continue;
+                
+                if (arr[i] == last_used) continue;
+
+                last_used = arr[i];
+                visited[i] = true;
                 result[k] = arr[i];
-                rec_func(k + 1, i);
+                rec_func(k + 1);
+                visited[i] = false;
                 result[k] = 0;
             }
         }
@@ -40,7 +47,7 @@ class Main {
 
     static void pro() {
         Arrays.sort(arr);
-        rec_func(1, 0);
+        rec_func(1);
         System.out.print(sb.toString());
     }
 
