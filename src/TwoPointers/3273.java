@@ -1,42 +1,41 @@
-package TwoPointers;
 import java.io.IOException;
 
 import java.io.*;
 import java.util.*;
-
-import Main;
-import Main.FastReader;
 
 class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
     static int n, x;
-    static int[] a;
+    static int[] arr;
 
     static void input() {
         n = scan.nextInt();
-        a = new int[n + 1];
+        arr = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            a[i] = scan.nextInt();
+            arr[i] = scan.nextInt();
         }
         x = scan.nextInt();
-        Arrays.sort(a, 1, n + 1);
     }
 
     static void pro() {
-        int L = 1, R = n, cnt = 0;
-        while (L < R) {
-            if (a[L] + a[R] == x) {
-                cnt++;
-            }
-            if(a[L] + a[R] >= x) {
-                R--;
+        Arrays.sort(arr);
+        int left = 1, right = n, sum = 0, count = 0;
+        while (left < right) {
+            sum = arr[left] + arr[right];
+            if (sum == x) {
+                left++;
+                right--;
+                count++;
+            } else if (sum < x) {
+                left++;
             } else {
-                L++;
+                right--;
             }
         }
-        System.out.println(cnt);
+
+        System.out.println(count);
     }
 
 
