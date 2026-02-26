@@ -7,50 +7,37 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static String N;
-    static int len;
-    static int[] dp;
-    static int mod = 1000000;
+    static String a;
+    static long[] dp;
 
     static void input() {
-        N = scan.next();
-        len = N.length();
-        dp = new int[len];
+        a = scan.next();
+        dp = new long[a.length() + 1];
     }
 
     static void pro() {
-        if (N.charAt(0) != '0') {
-            dp[0] = 1;
+        if (a.charAt(0) == '0') {
+            System.out.println(0);
+            return;
         }
 
-        for (int i = 1; i < len; i++) {
-            if(N.charAt(i) != '0') {
-                dp[i] = dp[i - 1];
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= a.length(); i++) {
+            char now = a.charAt(i - 1);
+            if (now != '0') {
+                dp[i] += dp[i - 1];
             }
-
-            if (calculate(N.charAt(i - 1), N.charAt(i))) {
-                if (i < 2) {
-                    dp[i] += 1;
-                } else {
-                    dp[i] = (dp[i] + dp[i - 2]) % mod;
+            char prev = a.charAt(i - 2);
+            if (prev != '0') {
+                int value = (prev - '0') * 10 + (now - '0');
+                if (value >= 10 && value <= 26) {
+                    dp[i] += dp[i - 2];
                 }
             }
+            dp[i] %= 1000000;
         }
-
-        System.out.println(dp[len - 1]);
-    }
-
-    static boolean calculate (char a, char b) {
-        if (a == '0') {
-            return false;
-        }
-        if (a == '1') {
-            return true;
-        }
-        if (a >= '3') {
-            return false;
-        }
-        return b <= '6';
+        System.out.println(dp[a.length()]);
     }
 
 
