@@ -1,57 +1,57 @@
-package BinarySearch;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Algorithm_2805 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
-
-    static int N, M;
-    static int[] A;
-
-    static boolean determination(int H) {
-        long sum = 0;
-        for(int i = 1; i<= N; i++) {
-            if(A[i] > H) {
-                sum += A[i] - H;
-            }
-        }
-        return sum >= M;
-    }
-
+    
+    static int N, M, answer;
+    static int[] arr;
 
     static void input() {
         N = scan.nextInt();
         M = scan.nextInt();
-        A = new int[N + 1];
+        arr = new int[N + 1];
         for (int i = 1; i <= N; i++) {
-            A[i] = scan.nextInt();
+            arr[i] = scan.nextInt();
         }
     }
 
-    static void pro() {
-        long L = 0, R = 2000000000, ans = 0;
-        while(L <= R) {
-            int mid = (int) ((L + R) / 2);
-            if(determination(mid)) {
-                ans = mid;
+    static void binary_search(long L, long R) {
+        while (L <= R) {
+            int mid = (int) (L + R) / 2;
+            if (determination(mid)) {
+                answer = mid;
                 L = mid + 1;
             } else {
                 R = mid - 1;
             }
         }
-
-        sb.append(ans).append("\n");
     }
 
-    public static void main(String[] args){
+    static boolean determination(int H) {
+        long sum = 0;
+
+        for (int i = 1; i <= N; i++) {
+            if (arr[i] > H) {
+                sum += arr[i] - H;
+            }
+        }
+
+        return sum >= M;
+    }
+
+    static void pro() {
+        binary_search(1, 2000000000);
+        System.out.println(answer);
+    }
+
+
+    public static void main(String[] args) throws IOException {
         input();
         pro();
-
-        System.out.println(sb.toString());
     }
 
     static class FastReader {
