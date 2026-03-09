@@ -8,43 +8,43 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N;
+    static Elem[] B;
     static int[] P;
-    static Element[] B;
 
     static void input() {
         N = scan.nextInt();
-        B = new Element[N];
+        B = new Elem[N];
         P = new int[N];
         for (int i = 0; i < N; i++) {
-            B[i] = new Element(scan.nextInt(), i);
+            B[i] = new Elem(scan.nextInt(), i);
+        }
+    }
+
+    static class Elem implements Comparable<Elem> {
+        public int value;
+        public int idx;
+
+        public Elem (int value, int idx) {
+            this.value = value;
+            this.idx = idx;
+        }
+
+        @Override
+        public int compareTo(Elem o) {
+            return value - o.value;
         }
     }
 
     static void pro() {
         Arrays.sort(B);
-
-        for(int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++) {
             P[B[i].idx] = i;
         }
-        for(int i = 0; i < N; i++) {
-            sb.append(P[i]).append(' ');
-        }
-        System.out.print(sb.toString());
-    }
 
-    static class Element implements Comparable<Element> {
-        int value;
-        int index;
-
-        public Element (int value, int index) {
-            this.value = value;
-            this.index = index;
+        for (int i = 0; i < N; i++) {
+            sb.append(P[i]).append(" ");
         }
-
-        @Override
-        public int compareTo(Element o) {
-            return this.value - o.value;
-        }
+        System.out.println(sb.toString());
     }
 
 
