@@ -20,23 +20,23 @@ class Main {
 
     static void pro() {
         Arrays.sort(A, 1, N + 1);
-        int start = 1, end = N, answer1 = 0, answer2 = 0, min = Integer.MAX_VALUE;
-        while (start < end) {
-            int sum = A[start] + A[end];
-            int absSum = Math.abs(sum);
-            if(absSum < min) {
-                answer1 = start;
-                answer2 = end;
-                min = absSum;
-            }
+        int L = 1, R = N, sum = Integer.MAX_VALUE, v1 = 0, v2 = 0;
 
-            if (sum < 0) {
-                start++;
+        while(L < R) {
+            if (sum > Math.abs(A[L] + A[R])) {
+                sum = Math.abs(A[L] + A[R]);
+                v1 = A[L];
+                v2 = A[R];
+            }
+            
+            if (A[L] + A[R] <= 0) {
+                L++;
             } else {
-                end--;
+                R--;
             }
         }
-        System.out.println(A[answer1] + " " + A[answer2]);
+
+        System.out.print(v1 + " " + v2);
     }
 
 
