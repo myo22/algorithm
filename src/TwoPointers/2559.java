@@ -7,7 +7,7 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, K, sum, max;
+    static int N, K;
     static int[] arr;
 
     static void input() {
@@ -20,18 +20,18 @@ class Main {
     }
 
     static void pro() {
+        int sum = 0;
         for (int i = 1; i <= K; i++) {
             sum += arr[i];
         }
-        
-        max = Integer.MIN_VALUE;
-        for (int i = K + 1; i <= N; i++) {
-            sum += arr[i];
-            sum -= arr[i - K];
-        
+
+        int left = 1, right = K, max = sum;
+        while (right < N) {
+            sum += arr[++right];
+            sum -= arr[left++];
             max = Math.max(sum, max);
         }
-        System.out.println(max);
+        System.out.print(max);
     }
 
 
