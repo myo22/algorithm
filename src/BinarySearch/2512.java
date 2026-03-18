@@ -1,55 +1,57 @@
-package BinarySearch;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
-public class Algorithm_2512 {
+import java.io.*;
+import java.util.*;
+
+class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, M;
-    static int[] A;
+    static int N, M, max, answer;
+    static int[] arr;
 
     static void input() {
         N = scan.nextInt();
-        A = new int[N + 1];
+        arr = new int[N + 1];
+        max = Integer.MIN_VALUE;
         for (int i = 1; i <= N; i++) {
-            A[i] = scan.nextInt();
+            arr[i] = scan.nextInt();
+            max = Math.max(max, arr[i]);
         }
         M = scan.nextInt();
     }
 
-    static boolean determination(int limit) {
+    static void binary_search(int left, int right) {
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (determination(mid)) {
+                answer = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+    }
+
+    static boolean determination(int k) {
         int sum = 0;
         for (int i = 1; i <= N; i++) {
-            sum += Math.min(A[i], limit);
+            if (arr[i] < k) {
+                sum += arr[i];
+            } else {
+                sum += k;
+            }
         }
         return sum <= M;
     }
 
     static void pro() {
-        int L = 0, R = 0, answer = 0;
-        for (int i = 1; i <= N; i++) {
-            R = Math.max(R, A[i]);
-        }
-
-        while (L <= R) {
-            int mid = (L + R) / 2;
-            if (determination(mid)) {
-                answer = mid;
-                L = mid + 1;
-            } else{
-                R = mid - 1;
-            }
-        }
-
-        System.out.println(answer);
+        binary_search(1, max);
+        System.out.print(answer);
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         input();
         pro();
     }
