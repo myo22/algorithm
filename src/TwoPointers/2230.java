@@ -21,17 +21,18 @@ class Main {
 
     static void pro() {
         Arrays.sort(A, 1, N + 1);
-        int start = 1; int end = 1; int answer = Integer.MAX_VALUE;
-        while (end <= N && start <= N) {
-            int diff = A[end] - A[start];
-            if (diff < M) {
-                end++;
+        int left = 1, right = 1, ans = Integer.MAX_VALUE;
+        while(right <= N && left <= N) {
+            int diff = A[right] - A[left];
+            if (diff >= M) {
+                ans = Math.min(ans, diff);
+                left++;
             } else {
-                answer = Math.min(answer, diff);
-                start++;
+                right++;
             }
         }
-        System.out.println(answer);
+
+        System.out.print(ans);
     }
 
 
