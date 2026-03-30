@@ -7,36 +7,30 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N;
-    static String[] A, extension;
+    static int N, count = 1;
+    static String[] arr;
 
     static void input() {
         N = scan.nextInt();
-        A = new String[N + 1];
-        extension = new String[N + 1];
-        for (int i = 1; i <= N; i++) {
-            A[i] = scan.next();
+        arr = new String[N + 1];
+        for (int i = 1 ; i <= N; i++) {
+            arr[i] = scan.nextLine().split("\\.")[1];
         }
     }
 
     static void pro() {
-        for (int i = 1; i <= N; i++) {
-            int idx = A[i].indexOf('.');
-            String ext = A[i].substring(idx + 1);
-            extension[i] = ext;
-        }
-        Arrays.sort(extension, 1, N + 1);
-        int cnt = 1;
-        for (int i = 1; i <= N - 1; i++) {
-            if (!extension[i].equals(extension[i + 1])) {
-                System.out.println(extension[i] + " " + cnt);
-                cnt = 0;
+        Arrays.sort(arr, 1, N + 1);
+        for (int i = 2 ; i <= N; i++) {
+            if (arr[i - 1].equals(arr[i])) {
+                count++;
+            } else {
+                sb.append(arr[i - 1]).append(" ").append(count).append("\n");
+                count = 1;
             }
-            cnt++;
         }
-        if (cnt != 0) {
-            System.out.println(extension[N] + " " +cnt);
-        }
+
+        sb.append(arr[N]).append(" ").append(count);
+        System.out.print(sb.toString());
     }
 
 
