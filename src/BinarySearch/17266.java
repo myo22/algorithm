@@ -7,7 +7,7 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, M;
+    static int N, M, ans;
     static int[] x;
 
     static void input() {
@@ -19,35 +19,38 @@ class Main {
         }
     }
 
-    static void binary_search() {
-        int L = 1, R = N, answer = 0;
+    static void binary_search(int L, int R) {
         while (L <= R) {
             int mid = (L + R) / 2;
             if (determination(mid)) {
-                answer = mid;
+                ans = mid;
                 R = mid - 1;
             } else {
                 L = mid + 1;
             }
         }
-        System.out.println(answer);
     }
 
-    static boolean determination(int h) {
-        int last_reach = 0;
-        for (int i = 1; i <= M; i++) {
-            if(x[i] - h > last_reach) {
-                return false;
-            }
-            last_reach = x[i] + h;
+    static boolean determination(int H) {
+        boolean flag = true;
+        if (x[1] - H > 0) return false;
+
+        for (int i = 1; i < M; i++) {
+            if (x[i + 1] - x[i] > 2 * H) return false;
         }
-        return last_reach >= N;
+        if (x[M] + H < N) return false;
+        return flag;
+    }
+
+    static void pro() {
+        binary_search(1, N);
+        System.out.print(ans);
     }
 
 
     public static void main(String[] args) throws IOException {
         input();
-        binary_search();
+        pro();
     }
 
     static class FastReader {
