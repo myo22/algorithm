@@ -8,33 +8,40 @@ class Main {
     static StringBuilder sb = new StringBuilder();
 
     static int N, K;
-    static int[] P;
+    static int[] arr;
 
     static void input() {
         N = scan.nextInt();
         K = scan.nextInt();
-        P = new int[N + 1];
+        arr = new int [N + 1];
         for (int i = 1; i <= N; i++) {
-            P[i] = scan.nextInt();
+            arr[i] = scan.nextInt();
         }
     }
 
     static void pro() {
-        int L = 1, R = 1, cnt = 0, answer = 1000000;
-        while(R <= N) {
-            if (P[R] == 1) {
-                cnt++;
+        int L = 1, R = 1, min = Integer.MAX_VALUE, count = 0;
+        while (R <= N) {
+            if (arr[R] == 1) {
+                count++;
             }
-            while(cnt >= K) {
-                answer = Math.min(answer, R - L + 1);
-                if (P[L] == 1){
-                    cnt--;
+
+            while (count == K) {
+                min = Math.min(min, R - L + 1);
+
+                if (arr[L] == 1) {
+                    count--;
                 }
                 L++;
             }
             R++;
         }
-        System.out.println(answer == 1000000 ? -1 : answer);
+
+        if (min == Integer.MAX_VALUE) {
+            System.out.print("-1");
+        } else {
+            System.out.print(min);
+        }
     }
 
 
