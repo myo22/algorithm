@@ -20,11 +20,11 @@ class Main {
     }
 
     static void pro() {
-        int left = 1, right = 0, sum = 0, min = Integer.MAX_VALUE;
+        int left = 1, right = 0, sum = 0, minlen = Integer.MAX_VALUE;
 
         while (true) {
             if (sum >= S) {
-                min = Math.min(min, right - left + 1);
+                minlen = Math.min(minlen, right - left + 1);
                 sum -= arr[left++];
             } else if (right == N) {
                 break;
@@ -33,11 +33,11 @@ class Main {
             }
         }
 
-        if (min == Integer.MAX_VALUE) {
-            min = 0;
-        }
-
-        System.out.print(min);
+        if (minLen == Integer.MAX_VALUE) {
+            System.out.println(0);
+        } else {
+            System.out.println(minLen);
+        };
     }
 
 
