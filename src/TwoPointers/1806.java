@@ -20,20 +20,24 @@ class Main {
     }
 
     static void pro() {
-        int L = 1; int sum = 0; int cnt = Integer.MAX_VALUE;;
-        for (int R = 1; R <= N; R++) {
-            sum += arr[R];
-            while (sum >= S) {
-                cnt = Math.min(R - L + 1, cnt);
-                sum -= arr[L];
-                L++;
+        int left = 1, right = 0, sum = 0, min = Integer.MAX_VALUE;
+
+        while (true) {
+            if (sum >= S) {
+                min = Math.min(min, right - left + 1);
+                sum -= arr[left++];
+            } else if (right == N) {
+                break;
+            } else {
+                sum += arr[++right];
             }
         }
-        if (cnt == Integer.MAX_VALUE) {
-            System.out.println(0);
-        } else {
-            System.out.println(cnt);
+
+        if (min == Integer.MAX_VALUE) {
+            min = 0;
         }
+
+        System.out.print(min);
     }
 
 
