@@ -24,21 +24,22 @@ class Main {
     }
 
     static void pro() {
-        int a = 1; int b = 1;
-        while (a <= N && b <= M) {
-            if (B[b] <= A[a]) {
-                sb.append(B[b++]).append(" ");
+        int left = 1, right = 1;
+        while (left <= N && right <= M) {
+            if (A[left] <= B[right]) {
+                sb.append(A[left++]).append(" ");
             } else {
-                sb.append(A[a++]).append(" ");
+                sb.append(B[right++]).append(" ");
             }
         }
-        while (a <= N) {
-            sb.append(A[a++]).append(" ");
+        while (left <= N) {
+            sb.append(A[left++]).append(" ");
         }
-        while (b <= M) {
-            sb.append(B[b++]).append(" ");
+        while (right <= M) {
+            sb.append(B[right++]).append(" ");
         }
-        System.out.println(sb.toString());
+
+        System.out.print(sb.toString());
     }
 
 
