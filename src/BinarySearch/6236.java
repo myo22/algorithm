@@ -7,7 +7,7 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int N, M;
+    static int N, M, answer;
     static int[] arr;
 
     static void input() {
@@ -19,43 +19,45 @@ class Main {
         }
     }
 
-    static void binary_search(int L, int R) {
-        int answer = 0;
-        while (L <= R) {
-            int mid = (L + R) / 2;
-            if(determination(mid)) {
+    static void binary_search() {
+        int left = 1, right = 1000000000;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (determination(mid)) {
+                right = mid - 1;
                 answer = mid;
-                R = mid - 1;
             } else {
-                L = mid + 1;
+                left = mid + 1;
             }
         }
-        System.out.println(answer);
     }
 
-    static boolean determination(int k) {
-        int sum = 0;
-        int cnt = 1;
-
+    static boolean determination(int K) {
+        int count = 1, sum = K;
         for (int i = 1; i <= N; i++) {
-            if (arr[i] > k) {
+            if (arr[i] > K) {
                 return false;
             }
-
-            if (sum + arr[i] > k) {
-                cnt++;
-                sum = arr[i];
+            if (sum >= arr[i]) {
+                sum -= arr[i];
             } else {
-                sum += arr[i];
+                sum = K;
+                count++;
+                sum -= arr[i];
             }
         }
-        return cnt <= M;
+        return count <= M;
+    }
+
+    static void pro() {
+        binary_search();
+        System.out.print(answer);
     }
 
 
     public static void main(String[] args) throws IOException {
         input();
-        binary_search(1, 1000000000);
+        pro();
     }
 
     static class FastReader {
