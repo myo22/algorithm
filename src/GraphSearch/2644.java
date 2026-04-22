@@ -7,43 +7,54 @@ class Main {
     static FastReader scan = new FastReader();
     static StringBuilder sb = new StringBuilder();
 
-    static int n, m, a, b;
-    static int result = -1;
-    static int[][] adj;
-    static boolean[] visit;
+    static int n, x1, y1, m;
+    static int[] dist;
+    static ArrayList<Integer>[] adj;
 
     static void input() {
         n = scan.nextInt();
-        a = scan.nextInt();
-        b = scan.nextInt();
-        adj = new int[n + 1][n + 1];
-        visit = new boolean[n + 1];
+        x1 = scan.nextInt();
+        y1 = scan.nextInt();
         m = scan.nextInt();
+        dist = new int[n + 1];
+        adj = new ArrayList[n + 1];
+        for (int i = 1; i <= n; i++) {
+            adj[i] = new ArrayList<>();
+        }
         for (int i = 1; i <= m; i++) {
             int x = scan.nextInt();
             int y = scan.nextInt();
-            adj[x][y] = 1;
-            adj[y][x] = 1;
+            adj[x].add(y);
+            adj[y].add(x);
         }
     }
 
-    static void dfs(int x, int depth) {
-        visit[x] = true;
-        if (x == b) {
-            result = depth;
-        } else {
-            for (int y = 1; y <= n; y++) {
-                if(adj[x][y] == 0 || visit[y]) {
+    static void bfs(int start) {
+        Queue<Integer> que = new LinkedList<>();
+        que.add(start);
+        dist[start] = 0;
+        while(!que.isEmpty()) {
+            int x = que.poll();
+
+            for (int y : adj[x]) {
+                if (dist[y] != -1) {
                     continue;
                 }
-                dfs(y, depth + 1);
+
+                dist[y] = dist[x] + 1;
+                que.add(y);
             }
         }
     }
 
     static void pro() {
-        dfs(a, 0);
-        System.out.println(result);
+        for (int i = 1; i <= n; i++) {
+            dist[i] = -1;
+        }
+
+        bfs(x1);
+
+        System.out.print(dist[y1]);
     }
 
 
