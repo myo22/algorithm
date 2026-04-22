@@ -16,7 +16,6 @@ class Main {
         x1 = scan.nextInt();
         y1 = scan.nextInt();
         m = scan.nextInt();
-        dist = new int[n + 1];
         adj = new ArrayList[n + 1];
         for (int i = 1; i <= n; i++) {
             adj[i] = new ArrayList<>();
@@ -31,8 +30,13 @@ class Main {
 
     static void bfs(int start) {
         Queue<Integer> que = new LinkedList<>();
+        for (int i = 1; i <= n; i++) {
+            dist[i] = -1;
+        }
+
         que.add(start);
         dist[start] = 0;
+
         while(!que.isEmpty()) {
             int x = que.poll();
 
@@ -40,20 +44,15 @@ class Main {
                 if (dist[y] != -1) {
                     continue;
                 }
-
-                dist[y] = dist[x] + 1;
                 que.add(y);
+                dist[y] = dist[x] + 1;
             }
         }
     }
 
     static void pro() {
-        for (int i = 1; i <= n; i++) {
-            dist[i] = -1;
-        }
-
+        dist = new int[n + 1];
         bfs(x1);
-
         System.out.print(dist[y1]);
     }
 
