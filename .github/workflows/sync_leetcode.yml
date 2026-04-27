@@ -3,7 +3,7 @@ name: Sync Leetcode
 on:
   workflow_dispatch:      # (중요) 우리가 버튼을 눌러서 직접 실행할 수 있게 해줍니다.
   schedule:
-    - cron: "0 20 * * *"  # 매일 한국 시간 새벽 5시에 자동으로 돌아갑니다.
+    - cron: "0 0 * * *"  # 매일 한국 시간 오전 9시에 자동으로 돌아갑니다.
 
 jobs:
   build:
