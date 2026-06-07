@@ -1,17 +1,18 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        int max = Integer.MIN_VALUE;
-        int answer = 0;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
-        }
-        for (int key : map.keySet()) {
-            if (map.get(key) > max) {
-                answer = key;
-                max = map.get(key);
+        int candidate = 0;
+        int count = 0;
+        
+        for (int num : nums) {
+            // 카운트가 0이면 새로운 후보를 선정
+            if (count == 0) {
+                candidate = num;
             }
+            
+            // 후보와 같으면 count 증가, 다르면 감소
+            count += (num == candidate) ? 1 : -1;
         }
-        return answer;
+        
+        return candidate;
     }
 }
