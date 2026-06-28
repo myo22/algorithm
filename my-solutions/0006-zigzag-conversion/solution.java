@@ -1,32 +1,31 @@
 class Solution {
     public String convert(String s, int numRows) {
-        if (s.length() <= numRows || numRows == 1) {
+        if (numRows == 1 || numRows >= s.length()) {
             return s;
         }
-        
-        int currentRow = 0;
-        boolean flag = false;
         
         StringBuilder[] rows = new StringBuilder[numRows];
         for (int i = 0; i < numRows; i++) {
             rows[i] = new StringBuilder();
         }
+        boolean goingDown = false;
+        int currRow = 0;
         
-        for (int i = 0; i < s.length(); i++) {
-            rows[currentRow].append(s.charAt(i));
-            
-            if (currentRow == 0 || currentRow == numRows - 1) {
-                flag = !flag;
+        for (char c : s.toCharArray()) {
+            rows[currRow].append(c);
+
+            if (currRow == 0 || currRow == numRows - 1) {
+                goingDown = !goingDown;
             }
-            
-            currentRow += flag ? 1 : -1;
+
+            currRow += goingDown ? 1 : -1;
         }
         
-        StringBuilder sb = new StringBuilder();
-        for (StringBuilder row : rows) {
-            sb.append(row);
+        String answer = "";
+        for (StringBuilder sb : rows) {
+            answer += sb;
         }
         
-        return sb.toString();
+        return answer;
     }
 }
