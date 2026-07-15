@@ -1,20 +1,19 @@
 class Solution {
     public int jump(int[] nums) {
-        int maxIdx = 0;
         int curEnd = 0;
-        int k = 0;
+        int fartest = 0;
+        int count = 0;
         for (int i = 0; i < nums.length - 1; i++) {
-            maxIdx = Math.max(maxIdx, i + nums[i]);
-            
-            if (curEnd >= nums.length - 1) {
-                break;
-            }
-            
-            if (curEnd == i) {
-                curEnd = maxIdx;
-                k++;
-            }                    
+            fartest = Math.max(fartest, i + nums[i]);
+            if (i == curEnd) {
+                curEnd = fartest;
+                count++;
+                
+                if (curEnd >= nums.length - 1) {
+                    break;        
+                }                 
+            }           
         }
-        return k;
+        return count;
     }
 }
