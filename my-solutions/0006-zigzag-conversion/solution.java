@@ -3,29 +3,30 @@ class Solution {
         if (numRows == 1 || numRows >= s.length()) {
             return s;
         }
-        
-        StringBuilder[] rows = new StringBuilder[numRows];
+
+        StringBuilder[] str = new StringBuilder[numRows];
         for (int i = 0; i < numRows; i++) {
-            rows[i] = new StringBuilder();
+            str[i] = new StringBuilder();
         }
-        boolean goingDown = false;
-        int currRow = 0;
-        
-        for (char c : s.toCharArray()) {
-            rows[currRow].append(c);
 
-            if (currRow == 0 || currRow == numRows - 1) {
-                goingDown = !goingDown;
+        int index = 0;
+        int direction = -1;
+
+        for (int i = 0; i < s.length(); i++) {
+            str[index].append(s.charAt(i));
+            
+            if (index == 0 || index == numRows - 1) {
+                direction *= -1;
             }
+            index += direction;
+        }
 
-            currRow += goingDown ? 1 : -1;
+        StringBuilder answer = new StringBuilder();
+        for (StringBuilder sb : str) {
+            answer.append(sb);
         }
-        
-        String answer = "";
-        for (StringBuilder sb : rows) {
-            answer += sb;
-        }
-        
-        return answer;
+
+        return answer.toString();
     }
 }
+
