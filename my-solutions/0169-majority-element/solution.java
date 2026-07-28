@@ -1,16 +1,18 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        int cur = nums[0];
-        int cnt = 1;
-        for (int i = 1; i < nums.length; i++) {
+        int n = nums.length;
+        int cur = nums[n - 1];
+        int count = 1;
+        for (int i = n - 2; i >= 0; i--) {
             if (cur == nums[i]) {
-                cnt++;
+                count++;
             } else {
-                cnt--;
+                count--;
             }
             
-            if (cnt == 0) {
-                cur = nums[i + 1];
+            if (count == 0) {
+                cur = nums[i];
+                count = 1;
             }
         }
         return cur;
