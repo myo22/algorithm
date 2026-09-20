@@ -5,13 +5,12 @@ class Solution {
         int minLength = Integer.MAX_VALUE;
         for (int right = 0; right < nums.length; right++) {
             sum += nums[right];
-            while (sum >= target) {
-                sum -= nums[left++];
+            while (sum >= target) {                
+                minLength = Math.min(minLength, right - left + 1);
                 
-                minLength = Math.min(minLength, right - left + 2);
-            }
+                sum -= nums[left++];                           
+            }         
         }
-        
         return minLength == Integer.MAX_VALUE ? 0 : minLength;
     }
 }
