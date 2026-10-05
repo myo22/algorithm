@@ -1,37 +1,30 @@
 class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {        
+    public List<Integer> spiralOrder(int[][] matrix) {
         List<Integer> list = new ArrayList<>();
         int m = matrix.length;
         int n = matrix[0].length;
         
-        if (m == 0 || n == 0) {
-            return list;
-        }
+        int l = 0, r = 0, dir = 0;
+        int[] dirX = {0, 1, 0, -1};
+        int[] dirY = {1, 0, -1, 0};
         
         boolean[][] visited = new boolean[m][n];
         
-        int r = 0, c = 0, dirIdx = 0;
-        
-        int[] dr = {0, 1, 0, -1};
-        int[] dc = {1, 0, -1, 0};
-        
         for (int i = 0; i < m * n; i++) {
-            list.add(matrix[r][c]);
-            visited[r][c] = true;
+            list.add(matrix[l][r]);
+            visited[l][r] = true;
             
-            int nextR = r + dr[dirIdx];
-            int nextC = c + dc[dirIdx];
+            int dx = l + dirX[dir];
+            int dy = r + dirY[dir];
             
-            if (nextR < 0 || nextR >= m || nextC < 0 || nextC >= n || visited[nextR][nextC]) {
-                dirIdx = (dirIdx + 1) % 4;
-                nextR = r + dr[dirIdx];
-                nextC = c + dc[dirIdx];
+            if (dx < 0 || dx >= m || dy < 0 || dy >= n || visited[dx][dy]) {
+                dir = (dir + 1) % 4;
+                dx = l + dirX[dir];
+                dy = r + dirY[dir];
             }
-            
-            r = nextR;
-            c = nextC;
+            l = dx;
+            r = dy;
         }
-        
         return list;
     }
 }
