@@ -8,22 +8,23 @@ class Solution {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (matrix[i][j] == 0) {
-                    list.add(new int[]{i , j});
-                }             
+                   list.add(new int[]{i, j});
+                }
             }
         }
         
-        for (int[] a : list) {
-            int x = a[0];
-            int y = a[1];
+        for(int[] arr : list) {
+            int x = arr[0];
+            int y = arr[1];
             
             for (int i = 0; i < n; i++) {
                 matrix[x][i] = 0;
             }
-            
-            for (int j = 0; j < m; j++) {
-                matrix[j][y] = 0;
+        
+             for (int j = 0; j < m; j++) {
+                 matrix[j][y] = 0;
             }
         }
+        
     }
 }
